@@ -7,10 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		668AA63B1B0F2639004C8594 /* users_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 668AA63A1B0F2639004C8594 /* users_icon.png */; };
+		668AA63D1B0F3D2B004C8594 /* GoWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 668AA63C1B0F3D2B004C8594 /* GoWebViewController.m */; };
+		669F08651B0F067C00767771 /* white_logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 669F08641B0F067C00767771 /* white_logo.png */; };
+		669F08671B0F06B300767771 /* background.png in Resources */ = {isa = PBXBuildFile; fileRef = 669F08661B0F06B300767771 /* background.png */; };
+		669F08691B0F10FF00767771 /* ibeacon_logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 669F08681B0F10FF00767771 /* ibeacon_logo.png */; };
 		66E1FC121B0B719D002C4EC0 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 66E1FC111B0B719D002C4EC0 /* main.m */; };
 		66E1FC151B0B719D002C4EC0 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 66E1FC141B0B719D002C4EC0 /* AppDelegate.m */; };
-		66E1FC181B0B719D002C4EC0 /* FirstViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 66E1FC171B0B719D002C4EC0 /* FirstViewController.m */; };
-		66E1FC1B1B0B719D002C4EC0 /* SecondViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 66E1FC1A1B0B719D002C4EC0 /* SecondViewController.m */; };
+		66E1FC181B0B719D002C4EC0 /* InfoPresentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 66E1FC171B0B719D002C4EC0 /* InfoPresentViewController.m */; };
+		66E1FC1B1B0B719D002C4EC0 /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 66E1FC1A1B0B719D002C4EC0 /* SettingsViewController.m */; };
 		66E1FC1E1B0B719D002C4EC0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 66E1FC1C1B0B719D002C4EC0 /* Main.storyboard */; };
 		66E1FC201B0B719D002C4EC0 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 66E1FC1F1B0B719D002C4EC0 /* Images.xcassets */; };
 		66E1FC231B0B719D002C4EC0 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 66E1FC211B0B719D002C4EC0 /* LaunchScreen.xib */; };
@@ -28,15 +33,21 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		668AA63A1B0F2639004C8594 /* users_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = users_icon.png; sourceTree = "<group>"; };
+		668AA63C1B0F3D2B004C8594 /* GoWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GoWebViewController.m; sourceTree = "<group>"; };
+		668AA63E1B0F3D40004C8594 /* GoWebViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GoWebViewController.h; sourceTree = "<group>"; };
+		669F08641B0F067C00767771 /* white_logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = white_logo.png; sourceTree = "<group>"; };
+		669F08661B0F06B300767771 /* background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = background.png; sourceTree = "<group>"; };
+		669F08681B0F10FF00767771 /* ibeacon_logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ibeacon_logo.png; sourceTree = "<group>"; };
 		66E1FC0C1B0B719D002C4EC0 /* TempusB.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TempusB.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		66E1FC101B0B719D002C4EC0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		66E1FC111B0B719D002C4EC0 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		66E1FC131B0B719D002C4EC0 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		66E1FC141B0B719D002C4EC0 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		66E1FC161B0B719D002C4EC0 /* FirstViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FirstViewController.h; sourceTree = "<group>"; };
-		66E1FC171B0B719D002C4EC0 /* FirstViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FirstViewController.m; sourceTree = "<group>"; };
-		66E1FC191B0B719D002C4EC0 /* SecondViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SecondViewController.h; sourceTree = "<group>"; };
-		66E1FC1A1B0B719D002C4EC0 /* SecondViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SecondViewController.m; sourceTree = "<group>"; };
+		66E1FC161B0B719D002C4EC0 /* InfoPresentViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InfoPresentViewController.h; sourceTree = "<group>"; };
+		66E1FC171B0B719D002C4EC0 /* InfoPresentViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = InfoPresentViewController.m; sourceTree = "<group>"; };
+		66E1FC191B0B719D002C4EC0 /* SettingsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
+		66E1FC1A1B0B719D002C4EC0 /* SettingsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
 		66E1FC1D1B0B719D002C4EC0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		66E1FC1F1B0B719D002C4EC0 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		66E1FC221B0B719D002C4EC0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
@@ -63,6 +74,13 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		669F08631B0F062800767771 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
 		66E1FC031B0B719D002C4EC0 = {
 			isa = PBXGroup;
 			children = (
@@ -84,12 +102,14 @@
 		66E1FC0E1B0B719D002C4EC0 /* TempusB */ = {
 			isa = PBXGroup;
 			children = (
+				669F08681B0F10FF00767771 /* ibeacon_logo.png */,
+				668AA63A1B0F2639004C8594 /* users_icon.png */,
+				669F08661B0F06B300767771 /* background.png */,
+				669F08641B0F067C00767771 /* white_logo.png */,
+				669F08631B0F062800767771 /* Resources */,
+				66E1FC381B0B7335002C4EC0 /* Controllers */,
 				66E1FC131B0B719D002C4EC0 /* AppDelegate.h */,
 				66E1FC141B0B719D002C4EC0 /* AppDelegate.m */,
-				66E1FC161B0B719D002C4EC0 /* FirstViewController.h */,
-				66E1FC171B0B719D002C4EC0 /* FirstViewController.m */,
-				66E1FC191B0B719D002C4EC0 /* SecondViewController.h */,
-				66E1FC1A1B0B719D002C4EC0 /* SecondViewController.m */,
 				66E1FC1C1B0B719D002C4EC0 /* Main.storyboard */,
 				66E1FC1F1B0B719D002C4EC0 /* Images.xcassets */,
 				66E1FC211B0B719D002C4EC0 /* LaunchScreen.xib */,
@@ -122,6 +142,19 @@
 				66E1FC2D1B0B719D002C4EC0 /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		66E1FC381B0B7335002C4EC0 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				66E1FC161B0B719D002C4EC0 /* InfoPresentViewController.h */,
+				66E1FC171B0B719D002C4EC0 /* InfoPresentViewController.m */,
+				66E1FC191B0B719D002C4EC0 /* SettingsViewController.h */,
+				66E1FC1A1B0B719D002C4EC0 /* SettingsViewController.m */,
+				668AA63C1B0F3D2B004C8594 /* GoWebViewController.m */,
+				668AA63E1B0F3D40004C8594 /* GoWebViewController.h */,
+			);
+			name = Controllers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -205,8 +238,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				66E1FC1E1B0B719D002C4EC0 /* Main.storyboard in Resources */,
+				669F08691B0F10FF00767771 /* ibeacon_logo.png in Resources */,
+				669F08671B0F06B300767771 /* background.png in Resources */,
 				66E1FC231B0B719D002C4EC0 /* LaunchScreen.xib in Resources */,
+				668AA63B1B0F2639004C8594 /* users_icon.png in Resources */,
 				66E1FC201B0B719D002C4EC0 /* Images.xcassets in Resources */,
+				669F08651B0F067C00767771 /* white_logo.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -224,9 +261,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				66E1FC1B1B0B719D002C4EC0 /* SecondViewController.m in Sources */,
+				66E1FC1B1B0B719D002C4EC0 /* SettingsViewController.m in Sources */,
 				66E1FC151B0B719D002C4EC0 /* AppDelegate.m in Sources */,
-				66E1FC181B0B719D002C4EC0 /* FirstViewController.m in Sources */,
+				66E1FC181B0B719D002C4EC0 /* InfoPresentViewController.m in Sources */,
+				668AA63D1B0F3D2B004C8594 /* GoWebViewController.m in Sources */,
 				66E1FC121B0B719D002C4EC0 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -356,6 +394,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = TempusB/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -366,6 +405,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = TempusB/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -424,6 +464,7 @@
 				66E1FC341B0B719D002C4EC0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		66E1FC351B0B719D002C4EC0 /* Build configuration list for PBXNativeTarget "TempusBTests" */ = {
 			isa = XCConfigurationList;
@@ -432,6 +473,7 @@
 				66E1FC371B0B719D002C4EC0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
