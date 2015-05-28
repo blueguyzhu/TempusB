@@ -17,6 +17,9 @@
 #pragma mark - View Life Cycle
 - (void) viewDidLoad {
     [super viewDidLoad];
+    
+    [self.view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"background.png"]]];
+    
     NSURL *url = nil;
     if (true) {
         url = [NSURL URLWithString:@"http://www.tempus.no"];

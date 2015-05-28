@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface InfoPresentViewController : UIViewController
+@interface InfoPresentViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
 
 @property (nonatomic, weak) IBOutlet UITableView *msgTableView;
 @property (nonatomic, weak) IBOutlet UIButton *beaconBtn;
