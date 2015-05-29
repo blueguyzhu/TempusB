@@ -6,12 +6,18 @@
 //  Copyright (c) 2015 Tempus AS. All rights reserved.
 //
 
+#define kUUID_STR                   @"f7826da6-4fa2-4e98-8024-bc5b71e0893e"
+#define kREGION_ID                  @"Tempus_Beacon"
+
 #import "InfoPresentViewController.h"
 #import "NSString+HeightCalc.h"
 #import <CocoaLumberjack.h>
+#import <CoreLocation/CoreLocation.h>
 
-@interface InfoPresentViewController ()
+@interface InfoPresentViewController () <CLLocationManagerDelegate>
 @property (nonatomic, strong) NSArray *msgBuf;
+@property (nonatomic, strong) CLLocationManager *locManager;
+@property (nonatomic, strong) CLBeaconRegion *beaconRegion;
 @end
 
 @implementation InfoPresentViewController
@@ -22,7 +28,6 @@ static NSString *tmpStaticStr = @"2015-12-01 12:30:41 This is an example message
     [super viewDidLoad];
     
     [self.view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"background.png"]]];
-    
     [self initiation];
 }
 
@@ -30,6 +35,21 @@ static NSString *tmpStaticStr = @"2015-12-01 12:30:41 This is an example message
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+
+
+#pragma mark - Delegate of CLLocationManager
+- (void) locationManager:(CLLocationManager *)manager didStartMonitoringForRegion:(CLRegion *)region
+{
+    CLBeaconRegion *beaconRegion = (CLBeaconRegion *)region;
+    DDLogDebug(@"Start to monitor region: %@", region.identifier);
+    [manager startRangingBeaconsInRegion:beaconRegion];
+}
+
+- (void) locationManager:(CLLocationManager *)manager monitoringDidFailForRegion:(CLRegion *)region withError:(NSError *)error
+{
+    DDLogError(@"Monitor region %@ failed. \n%@. %@", region.identifier, error.localizedDescription, error.localizedFailureReason);
 }
 
 
@@ -85,6 +105,22 @@ static NSString *tmpStaticStr = @"2015-12-01 12:30:41 This is an example message
 #pragma mark - Private Methods
 - (void) initiation {
     self.msgBuf = [[NSArray alloc] init];
+    
+    //init location manager
+    self.locManager = [[CLLocationManager alloc] init];
+    self.locManager.delegate = self;
+    
+    if ([self.locManager respondsToSelector:@selector(requestAlwaysAuthorization)])
+        [self.locManager requestAlwaysAuthorization];
+    
+    //init beacon region
+    NSUUID *uuid = [[NSUUID alloc] initWithUUIDString:kUUID_STR];
+    self.beaconRegion = [[CLBeaconRegion alloc] initWithProximityUUID:uuid identifier:kREGION_ID];
+    self.beaconRegion.notifyEntryStateOnDisplay = YES;
+    self.beaconRegion.notifyOnEntry = YES;
+    self.beaconRegion.notifyOnExit = YES;
+    
+    [self.locManager startMonitoringForRegion:self.beaconRegion];
 }
 
 

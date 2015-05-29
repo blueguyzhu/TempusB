@@ -18,6 +18,7 @@
 		669F08691B0F10FF00767771 /* ibeacon_logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 669F08681B0F10FF00767771 /* ibeacon_logo.png */; };
 		66B918931B17420B00A86760 /* NSString+HeightCalc.m in Sources */ = {isa = PBXBuildFile; fileRef = 66B918921B17420B00A86760 /* NSString+HeightCalc.m */; };
 		66B918951B174BCD00A86760 /* MsgCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 66B918941B174BCD00A86760 /* MsgCell.xib */; };
+		66B918971B18B6C000A86760 /* TempusB.db in Resources */ = {isa = PBXBuildFile; fileRef = 66B918961B18B6C000A86760 /* TempusB.db */; };
 		66E1FC121B0B719D002C4EC0 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 66E1FC111B0B719D002C4EC0 /* main.m */; };
 		66E1FC151B0B719D002C4EC0 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 66E1FC141B0B719D002C4EC0 /* AppDelegate.m */; };
 		66E1FC181B0B719D002C4EC0 /* InfoPresentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 66E1FC171B0B719D002C4EC0 /* InfoPresentViewController.m */; };
@@ -53,6 +54,7 @@
 		66B918911B17420B00A86760 /* NSString+HeightCalc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSString+HeightCalc.h"; path = "Category/NSString+HeightCalc.h"; sourceTree = "<group>"; };
 		66B918921B17420B00A86760 /* NSString+HeightCalc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSString+HeightCalc.m"; path = "Category/NSString+HeightCalc.m"; sourceTree = "<group>"; };
 		66B918941B174BCD00A86760 /* MsgCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = MsgCell.xib; path = xib/MsgCell.xib; sourceTree = "<group>"; };
+		66B918961B18B6C000A86760 /* TempusB.db */ = {isa = PBXFileReference; lastKnownFileType = file; path = TempusB.db; sourceTree = "<group>"; };
 		66E1FC0C1B0B719D002C4EC0 /* TempusB.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TempusB.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		66E1FC101B0B719D002C4EC0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		66E1FC111B0B719D002C4EC0 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -182,6 +184,7 @@
 		66E1FC0F1B0B719D002C4EC0 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				66B918961B18B6C000A86760 /* TempusB.db */,
 				66E1FC101B0B719D002C4EC0 /* Info.plist */,
 				66E1FC111B0B719D002C4EC0 /* main.m */,
 			);
@@ -322,6 +325,7 @@
 				669F08671B0F06B300767771 /* background.png in Resources */,
 				66B918951B174BCD00A86760 /* MsgCell.xib in Resources */,
 				66E1FC231B0B719D002C4EC0 /* LaunchScreen.xib in Resources */,
+				66B918971B18B6C000A86760 /* TempusB.db in Resources */,
 				668AA63B1B0F2639004C8594 /* users_icon.png in Resources */,
 				66E1FC201B0B719D002C4EC0 /* Images.xcassets in Resources */,
 				669F08651B0F067C00767771 /* white_logo.png in Resources */,
