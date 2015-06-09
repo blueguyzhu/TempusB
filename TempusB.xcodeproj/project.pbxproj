@@ -11,6 +11,7 @@
 		66701C0E1B145B8E006C8C68 /* TempusRegMsg.m in Sources */ = {isa = PBXBuildFile; fileRef = 66701C0D1B145B8E006C8C68 /* TempusRegMsg.m */; };
 		66701C101B146089006C8C68 /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 66701C0F1B146089006C8C68 /* libsqlite3.0.dylib */; };
 		66701C131B146141006C8C68 /* DBManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 66701C121B146141006C8C68 /* DBManager.m */; };
+		6689EF481B271B490025B4B3 /* TempusBeacon.m in Sources */ = {isa = PBXBuildFile; fileRef = 6689EF471B271B490025B4B3 /* TempusBeacon.m */; };
 		668AA63B1B0F2639004C8594 /* users_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 668AA63A1B0F2639004C8594 /* users_icon.png */; };
 		668AA63D1B0F3D2B004C8594 /* GoWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 668AA63C1B0F3D2B004C8594 /* GoWebViewController.m */; };
 		669F08651B0F067C00767771 /* white_logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 669F08641B0F067C00767771 /* white_logo.png */; };
@@ -19,6 +20,11 @@
 		66B918931B17420B00A86760 /* NSString+HeightCalc.m in Sources */ = {isa = PBXBuildFile; fileRef = 66B918921B17420B00A86760 /* NSString+HeightCalc.m */; };
 		66B918951B174BCD00A86760 /* MsgCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 66B918941B174BCD00A86760 /* MsgCell.xib */; };
 		66B918971B18B6C000A86760 /* TempusB.db in Resources */ = {isa = PBXBuildFile; fileRef = 66B918961B18B6C000A86760 /* TempusB.db */; };
+		66B9189A1B1D9A7200A86760 /* PeripheralDeviceManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 66B918991B1D9A7200A86760 /* PeripheralDeviceManager.m */; };
+		66B9189D1B1DA3E900A86760 /* TempusEmployee.m in Sources */ = {isa = PBXBuildFile; fileRef = 66B9189C1B1DA3E900A86760 /* TempusEmployee.m */; };
+		66B918A01B1DB0C600A86760 /* RemoteRegEntry.m in Sources */ = {isa = PBXBuildFile; fileRef = 66B9189F1B1DB0C600A86760 /* RemoteRegEntry.m */; };
+		66B918A41B1DB7CE00A86760 /* TempusRemoteService.m in Sources */ = {isa = PBXBuildFile; fileRef = 66B918A31B1DB7CE00A86760 /* TempusRemoteService.m */; };
+		66B918A81B1DD40E00A86760 /* TempusResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 66B918A71B1DD40E00A86760 /* TempusResult.m */; };
 		66E1FC121B0B719D002C4EC0 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 66E1FC111B0B719D002C4EC0 /* main.m */; };
 		66E1FC151B0B719D002C4EC0 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 66E1FC141B0B719D002C4EC0 /* AppDelegate.m */; };
 		66E1FC181B0B719D002C4EC0 /* InfoPresentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 66E1FC171B0B719D002C4EC0 /* InfoPresentViewController.m */; };
@@ -45,6 +51,8 @@
 		66701C0F1B146089006C8C68 /* libsqlite3.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.0.dylib; path = usr/lib/libsqlite3.0.dylib; sourceTree = SDKROOT; };
 		66701C121B146141006C8C68 /* DBManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DBManager.m; path = Model/DBManager.m; sourceTree = "<group>"; };
 		66701C141B146161006C8C68 /* DBManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DBManager.h; path = Model/DBManager.h; sourceTree = "<group>"; };
+		6689EF461B2719DA0025B4B3 /* TempusBeacon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TempusBeacon.h; path = Model/TempusBeacon.h; sourceTree = "<group>"; };
+		6689EF471B271B490025B4B3 /* TempusBeacon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TempusBeacon.m; path = Model/TempusBeacon.m; sourceTree = "<group>"; };
 		668AA63A1B0F2639004C8594 /* users_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = users_icon.png; sourceTree = "<group>"; };
 		668AA63C1B0F3D2B004C8594 /* GoWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GoWebViewController.m; sourceTree = "<group>"; };
 		668AA63E1B0F3D40004C8594 /* GoWebViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GoWebViewController.h; sourceTree = "<group>"; };
@@ -55,6 +63,17 @@
 		66B918921B17420B00A86760 /* NSString+HeightCalc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSString+HeightCalc.m"; path = "Category/NSString+HeightCalc.m"; sourceTree = "<group>"; };
 		66B918941B174BCD00A86760 /* MsgCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = MsgCell.xib; path = xib/MsgCell.xib; sourceTree = "<group>"; };
 		66B918961B18B6C000A86760 /* TempusB.db */ = {isa = PBXFileReference; lastKnownFileType = file; path = TempusB.db; sourceTree = "<group>"; };
+		66B918981B1D9A7200A86760 /* PeripheralDeviceManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PeripheralDeviceManager.h; path = Model/PeripheralDeviceManager.h; sourceTree = "<group>"; };
+		66B918991B1D9A7200A86760 /* PeripheralDeviceManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PeripheralDeviceManager.m; path = Model/PeripheralDeviceManager.m; sourceTree = "<group>"; };
+		66B9189B1B1DA39200A86760 /* TempusEmployee.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TempusEmployee.h; path = Model/TempusEmployee.h; sourceTree = "<group>"; };
+		66B9189C1B1DA3E900A86760 /* TempusEmployee.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TempusEmployee.m; path = Model/TempusEmployee.m; sourceTree = "<group>"; };
+		66B9189F1B1DB0C600A86760 /* RemoteRegEntry.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RemoteRegEntry.m; path = Model/RemoteRegEntry.m; sourceTree = "<group>"; };
+		66B918A11B1DB0DC00A86760 /* RemoteRegEntry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RemoteRegEntry.h; path = Model/RemoteRegEntry.h; sourceTree = "<group>"; };
+		66B918A21B1DB7BC00A86760 /* TempusRemoteService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TempusRemoteService.h; path = Model/TempusRemoteService.h; sourceTree = "<group>"; };
+		66B918A31B1DB7CE00A86760 /* TempusRemoteService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TempusRemoteService.m; path = Model/TempusRemoteService.m; sourceTree = "<group>"; };
+		66B918A61B1DD39200A86760 /* TempusResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TempusResult.h; path = Model/TempusResult.h; sourceTree = "<group>"; };
+		66B918A71B1DD40E00A86760 /* TempusResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TempusResult.m; path = Model/TempusResult.m; sourceTree = "<group>"; };
+		66B918C11B1DE01A00A86760 /* TempusRemoteServiceResponseDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TempusRemoteServiceResponseDelegate.h; path = Model/TempusRemoteServiceResponseDelegate.h; sourceTree = "<group>"; };
 		66E1FC0C1B0B719D002C4EC0 /* TempusB.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TempusB.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		66E1FC101B0B719D002C4EC0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		66E1FC111B0B719D002C4EC0 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -98,9 +117,17 @@
 		66701C0B1B1455BB006C8C68 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				66B918A51B1DD37600A86760 /* TempusResult */,
+				66B9189E1B1DB07900A86760 /* TempusRemoteService */,
 				66701C111B14610C006C8C68 /* DBManager */,
 				66701C0C1B14560A006C8C68 /* TempusRegMsg.h */,
 				66701C0D1B145B8E006C8C68 /* TempusRegMsg.m */,
+				66B918981B1D9A7200A86760 /* PeripheralDeviceManager.h */,
+				66B918991B1D9A7200A86760 /* PeripheralDeviceManager.m */,
+				66B9189B1B1DA39200A86760 /* TempusEmployee.h */,
+				66B9189C1B1DA3E900A86760 /* TempusEmployee.m */,
+				6689EF461B2719DA0025B4B3 /* TempusBeacon.h */,
+				6689EF471B271B490025B4B3 /* TempusBeacon.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -139,6 +166,27 @@
 				66B918921B17420B00A86760 /* NSString+HeightCalc.m */,
 			);
 			name = Category;
+			sourceTree = "<group>";
+		};
+		66B9189E1B1DB07900A86760 /* TempusRemoteService */ = {
+			isa = PBXGroup;
+			children = (
+				66B9189F1B1DB0C600A86760 /* RemoteRegEntry.m */,
+				66B918A11B1DB0DC00A86760 /* RemoteRegEntry.h */,
+				66B918A21B1DB7BC00A86760 /* TempusRemoteService.h */,
+				66B918A31B1DB7CE00A86760 /* TempusRemoteService.m */,
+				66B918C11B1DE01A00A86760 /* TempusRemoteServiceResponseDelegate.h */,
+			);
+			name = TempusRemoteService;
+			sourceTree = "<group>";
+		};
+		66B918A51B1DD37600A86760 /* TempusResult */ = {
+			isa = PBXGroup;
+			children = (
+				66B918A61B1DD39200A86760 /* TempusResult.h */,
+				66B918A71B1DD40E00A86760 /* TempusResult.m */,
+			);
+			name = TempusResult;
 			sourceTree = "<group>";
 		};
 		66E1FC031B0B719D002C4EC0 = {
@@ -289,6 +337,11 @@
 				TargetAttributes = {
 					66E1FC0B1B0B719D002C4EC0 = {
 						CreatedOnToolsVersion = 6.3.2;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+						};
 					};
 					66E1FC271B0B719D002C4EC0 = {
 						CreatedOnToolsVersion = 6.3.2;
@@ -380,13 +433,19 @@
 			buildActionMask = 2147483647;
 			files = (
 				66701C131B146141006C8C68 /* DBManager.m in Sources */,
+				66B918A01B1DB0C600A86760 /* RemoteRegEntry.m in Sources */,
 				66E1FC1B1B0B719D002C4EC0 /* SettingsViewController.m in Sources */,
 				66E1FC151B0B719D002C4EC0 /* AppDelegate.m in Sources */,
 				66701C0E1B145B8E006C8C68 /* TempusRegMsg.m in Sources */,
 				66E1FC181B0B719D002C4EC0 /* InfoPresentViewController.m in Sources */,
+				66B9189A1B1D9A7200A86760 /* PeripheralDeviceManager.m in Sources */,
 				668AA63D1B0F3D2B004C8594 /* GoWebViewController.m in Sources */,
+				66B9189D1B1DA3E900A86760 /* TempusEmployee.m in Sources */,
 				66E1FC121B0B719D002C4EC0 /* main.m in Sources */,
+				66B918A81B1DD40E00A86760 /* TempusResult.m in Sources */,
+				6689EF481B271B490025B4B3 /* TempusBeacon.m in Sources */,
 				66B918931B17420B00A86760 /* NSString+HeightCalc.m in Sources */,
+				66B918A41B1DB7CE00A86760 /* TempusRemoteService.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

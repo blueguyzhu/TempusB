@@ -3,6 +3,7 @@
 
 target 'TempusB' do
 pod 'CocoaLumberjack'
+pod "AFNetworking", "~> 2.0"
 end
 
 target 'TempusBTests' do

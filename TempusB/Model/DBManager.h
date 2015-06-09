@@ -11,8 +11,14 @@
 
 #import <Foundation/Foundation.h>
 
+@class TempusRegMsg;
+
 @interface DBManager : NSObject
 
++ (instancetype) sharedInstance;
+
+- (NSMutableArray *) beaconDeviceList;
+- (BOOL) storeRegMsg: (TempusRegMsg *)msg:
 
 @end
 

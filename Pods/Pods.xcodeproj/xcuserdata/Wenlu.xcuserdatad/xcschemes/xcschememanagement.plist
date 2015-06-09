@@ -4,6 +4,11 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
+		<key>Pods-TempusB-AFNetworking.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Pods-TempusB-CocoaLumberjack.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -17,12 +22,17 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>125367D4BFE5946628A730C6</key>
+		<key>2AB67EFD5941AB06F6C2B048</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>E32EA0F0526E8C683B71ADD2</key>
+		<key>A65CA49A7812BAAE29BF8672</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>A9EB35544C502C911872C98F</key>
 		<dict>
 			<key>primary</key>
 			<true/>
