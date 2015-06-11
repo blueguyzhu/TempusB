@@ -10,6 +10,9 @@
 
 @interface SettingsViewController : UIViewController
 
+@property (nonatomic, weak) IBOutlet UIButton *actionMoreBtn;
+
+- (IBAction)didTappedActionMoreBtn:(id)sender;
 
 @end
 

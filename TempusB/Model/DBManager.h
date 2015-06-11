@@ -18,7 +18,8 @@
 + (instancetype) sharedInstance;
 
 - (NSMutableArray *) beaconDeviceList;
-- (BOOL) storeRegMsg: (TempusRegMsg *)msg:
+- (BOOL) storeRegMsg: (TempusRegMsg *)msg;
+- (NSArray *) regMsgsWithLimit: (NSInteger) limit;
 
 @end
 

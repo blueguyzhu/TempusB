@@ -13,7 +13,7 @@
 
 @interface TempusRegMsg : NSObject
 
-@property (nonatomic, assign) NSInteger time;
+@property (nonatomic) NSDate *time;
 @property (nonatomic) NSString *msg;
 
 @end

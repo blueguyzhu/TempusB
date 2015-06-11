@@ -1,0 +1,15 @@
+/* 
+  Localizable.strings
+  TempusB
+
+  Created by Wenlu Zhang on 10/06/15.
+  Copyright (c) 2015 Tempus AS. All rights reserved.
+*/
+
+"REG_UT" = "Inregistrerad";
+"REG_IN" = "Utregistrerad";
+"SUC" = "lyckades";
+"FAIL" = "misslyckades";
+"CHOOSE_ACCOUNT" = "Välj Konto";
+"SCAN_QR_CODE" = "Avsökning";
+"SETTINGS" = "Inställningar";

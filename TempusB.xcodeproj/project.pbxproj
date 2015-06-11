@@ -12,13 +12,21 @@
 		66701C101B146089006C8C68 /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 66701C0F1B146089006C8C68 /* libsqlite3.0.dylib */; };
 		66701C131B146141006C8C68 /* DBManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 66701C121B146141006C8C68 /* DBManager.m */; };
 		6689EF481B271B490025B4B3 /* TempusBeacon.m in Sources */ = {isa = PBXBuildFile; fileRef = 6689EF471B271B490025B4B3 /* TempusBeacon.m */; };
+		6689EF4F1B28420C0025B4B3 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6689EF511B28420C0025B4B3 /* Localizable.strings */; };
+		6689EF571B2973040025B4B3 /* plus_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 6689EF561B2973040025B4B3 /* plus_icon.png */; };
+		6689EF5E1B297A2A0025B4B3 /* DropdownListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6689EF5C1B297A2A0025B4B3 /* DropdownListViewController.m */; };
+		6689EF5F1B297A2A0025B4B3 /* DropdownListView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6689EF5D1B297A2A0025B4B3 /* DropdownListView.xib */; };
+		6689EF611B297B510025B4B3 /* DropdownListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6689EF601B297B510025B4B3 /* DropdownListCell.xib */; };
+		6689EF641B2996360025B4B3 /* DropdownListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6689EF631B2996360025B4B3 /* DropdownListCell.m */; };
+		6689EF661B299CBD0025B4B3 /* scan_btn_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 6689EF651B299CBD0025B4B3 /* scan_btn_icon.png */; };
+		6689EF681B299D4C0025B4B3 /* choose_account_btn_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 6689EF671B299D4C0025B4B3 /* choose_account_btn_icon.png */; };
+		6689EF6A1B29A74A0025B4B3 /* setting_btn_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 6689EF691B29A74A0025B4B3 /* setting_btn_icon.png */; };
 		668AA63B1B0F2639004C8594 /* users_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 668AA63A1B0F2639004C8594 /* users_icon.png */; };
 		668AA63D1B0F3D2B004C8594 /* GoWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 668AA63C1B0F3D2B004C8594 /* GoWebViewController.m */; };
 		669F08651B0F067C00767771 /* white_logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 669F08641B0F067C00767771 /* white_logo.png */; };
 		669F08671B0F06B300767771 /* background.png in Resources */ = {isa = PBXBuildFile; fileRef = 669F08661B0F06B300767771 /* background.png */; };
 		669F08691B0F10FF00767771 /* ibeacon_logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 669F08681B0F10FF00767771 /* ibeacon_logo.png */; };
 		66B918931B17420B00A86760 /* NSString+HeightCalc.m in Sources */ = {isa = PBXBuildFile; fileRef = 66B918921B17420B00A86760 /* NSString+HeightCalc.m */; };
-		66B918951B174BCD00A86760 /* MsgCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 66B918941B174BCD00A86760 /* MsgCell.xib */; };
 		66B918971B18B6C000A86760 /* TempusB.db in Resources */ = {isa = PBXBuildFile; fileRef = 66B918961B18B6C000A86760 /* TempusB.db */; };
 		66B9189A1B1D9A7200A86760 /* PeripheralDeviceManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 66B918991B1D9A7200A86760 /* PeripheralDeviceManager.m */; };
 		66B9189D1B1DA3E900A86760 /* TempusEmployee.m in Sources */ = {isa = PBXBuildFile; fileRef = 66B9189C1B1DA3E900A86760 /* TempusEmployee.m */; };
@@ -53,6 +61,23 @@
 		66701C141B146161006C8C68 /* DBManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DBManager.h; path = Model/DBManager.h; sourceTree = "<group>"; };
 		6689EF461B2719DA0025B4B3 /* TempusBeacon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TempusBeacon.h; path = Model/TempusBeacon.h; sourceTree = "<group>"; };
 		6689EF471B271B490025B4B3 /* TempusBeacon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TempusBeacon.m; path = Model/TempusBeacon.m; sourceTree = "<group>"; };
+		6689EF4D1B2841720025B4B3 /* nb */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nb; path = nb.lproj/Main.strings; sourceTree = "<group>"; };
+		6689EF4E1B2841720025B4B3 /* nb */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nb; path = nb.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		6689EF501B28420C0025B4B3 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		6689EF521B2842220025B4B3 /* nb */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nb; path = nb.lproj/Localizable.strings; sourceTree = "<group>"; };
+		6689EF531B2843EC0025B4B3 /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/Main.strings; sourceTree = "<group>"; };
+		6689EF541B2843EC0025B4B3 /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		6689EF551B2843EC0025B4B3 /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/Localizable.strings; sourceTree = "<group>"; };
+		6689EF561B2973040025B4B3 /* plus_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = plus_icon.png; sourceTree = "<group>"; };
+		6689EF5B1B297A2A0025B4B3 /* DropdownListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DropdownListViewController.h; sourceTree = "<group>"; };
+		6689EF5C1B297A2A0025B4B3 /* DropdownListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DropdownListViewController.m; sourceTree = "<group>"; };
+		6689EF5D1B297A2A0025B4B3 /* DropdownListView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DropdownListView.xib; sourceTree = "<group>"; };
+		6689EF601B297B510025B4B3 /* DropdownListCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DropdownListCell.xib; sourceTree = "<group>"; };
+		6689EF621B2996360025B4B3 /* DropdownListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DropdownListCell.h; sourceTree = "<group>"; };
+		6689EF631B2996360025B4B3 /* DropdownListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DropdownListCell.m; sourceTree = "<group>"; };
+		6689EF651B299CBD0025B4B3 /* scan_btn_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = scan_btn_icon.png; sourceTree = "<group>"; };
+		6689EF671B299D4C0025B4B3 /* choose_account_btn_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = choose_account_btn_icon.png; sourceTree = "<group>"; };
+		6689EF691B29A74A0025B4B3 /* setting_btn_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = setting_btn_icon.png; sourceTree = "<group>"; };
 		668AA63A1B0F2639004C8594 /* users_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = users_icon.png; sourceTree = "<group>"; };
 		668AA63C1B0F3D2B004C8594 /* GoWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GoWebViewController.m; sourceTree = "<group>"; };
 		668AA63E1B0F3D40004C8594 /* GoWebViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GoWebViewController.h; sourceTree = "<group>"; };
@@ -61,7 +86,6 @@
 		669F08681B0F10FF00767771 /* ibeacon_logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ibeacon_logo.png; sourceTree = "<group>"; };
 		66B918911B17420B00A86760 /* NSString+HeightCalc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSString+HeightCalc.h"; path = "Category/NSString+HeightCalc.h"; sourceTree = "<group>"; };
 		66B918921B17420B00A86760 /* NSString+HeightCalc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSString+HeightCalc.m"; path = "Category/NSString+HeightCalc.m"; sourceTree = "<group>"; };
-		66B918941B174BCD00A86760 /* MsgCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = MsgCell.xib; path = xib/MsgCell.xib; sourceTree = "<group>"; };
 		66B918961B18B6C000A86760 /* TempusB.db */ = {isa = PBXFileReference; lastKnownFileType = file; path = TempusB.db; sourceTree = "<group>"; };
 		66B918981B1D9A7200A86760 /* PeripheralDeviceManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PeripheralDeviceManager.h; path = Model/PeripheralDeviceManager.h; sourceTree = "<group>"; };
 		66B918991B1D9A7200A86760 /* PeripheralDeviceManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PeripheralDeviceManager.m; path = Model/PeripheralDeviceManager.m; sourceTree = "<group>"; };
@@ -148,9 +172,24 @@
 			name = ThirdParties;
 			sourceTree = "<group>";
 		};
+		6689EF581B2977B80025B4B3 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				6689EF5D1B297A2A0025B4B3 /* DropdownListView.xib */,
+				6689EF601B297B510025B4B3 /* DropdownListCell.xib */,
+				6689EF621B2996360025B4B3 /* DropdownListCell.h */,
+				6689EF631B2996360025B4B3 /* DropdownListCell.m */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
 		669F08631B0F062800767771 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				6689EF691B29A74A0025B4B3 /* setting_btn_icon.png */,
+				6689EF651B299CBD0025B4B3 /* scan_btn_icon.png */,
+				6689EF671B299D4C0025B4B3 /* choose_account_btn_icon.png */,
+				6689EF561B2973040025B4B3 /* plus_icon.png */,
 				669F08681B0F10FF00767771 /* ibeacon_logo.png */,
 				668AA63A1B0F2639004C8594 /* users_icon.png */,
 				669F08661B0F06B300767771 /* background.png */,
@@ -213,6 +252,7 @@
 		66E1FC0E1B0B719D002C4EC0 /* TempusB */ = {
 			isa = PBXGroup;
 			children = (
+				6689EF581B2977B80025B4B3 /* Views */,
 				66B918901B1741D600A86760 /* Category */,
 				66701C151B1470A7006C8C68 /* ThirdParties */,
 				66701C0B1B1455BB006C8C68 /* Model */,
@@ -224,7 +264,6 @@
 				66E1FC1F1B0B719D002C4EC0 /* Images.xcassets */,
 				66E1FC211B0B719D002C4EC0 /* LaunchScreen.xib */,
 				66E1FC0F1B0B719D002C4EC0 /* Supporting Files */,
-				66B918941B174BCD00A86760 /* MsgCell.xib */,
 			);
 			path = TempusB;
 			sourceTree = "<group>";
@@ -235,6 +274,7 @@
 				66B918961B18B6C000A86760 /* TempusB.db */,
 				66E1FC101B0B719D002C4EC0 /* Info.plist */,
 				66E1FC111B0B719D002C4EC0 /* main.m */,
+				6689EF511B28420C0025B4B3 /* Localizable.strings */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -265,6 +305,8 @@
 				66E1FC1A1B0B719D002C4EC0 /* SettingsViewController.m */,
 				668AA63C1B0F3D2B004C8594 /* GoWebViewController.m */,
 				668AA63E1B0F3D40004C8594 /* GoWebViewController.h */,
+				6689EF5B1B297A2A0025B4B3 /* DropdownListViewController.h */,
+				6689EF5C1B297A2A0025B4B3 /* DropdownListViewController.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -356,6 +398,8 @@
 			knownRegions = (
 				en,
 				Base,
+				nb,
+				sv,
 			);
 			mainGroup = 66E1FC031B0B719D002C4EC0;
 			productRefGroup = 66E1FC0D1B0B719D002C4EC0 /* Products */;
@@ -376,12 +420,18 @@
 				66E1FC1E1B0B719D002C4EC0 /* Main.storyboard in Resources */,
 				669F08691B0F10FF00767771 /* ibeacon_logo.png in Resources */,
 				669F08671B0F06B300767771 /* background.png in Resources */,
-				66B918951B174BCD00A86760 /* MsgCell.xib in Resources */,
+				6689EF661B299CBD0025B4B3 /* scan_btn_icon.png in Resources */,
+				6689EF611B297B510025B4B3 /* DropdownListCell.xib in Resources */,
 				66E1FC231B0B719D002C4EC0 /* LaunchScreen.xib in Resources */,
+				6689EF4F1B28420C0025B4B3 /* Localizable.strings in Resources */,
+				6689EF6A1B29A74A0025B4B3 /* setting_btn_icon.png in Resources */,
 				66B918971B18B6C000A86760 /* TempusB.db in Resources */,
+				6689EF571B2973040025B4B3 /* plus_icon.png in Resources */,
 				668AA63B1B0F2639004C8594 /* users_icon.png in Resources */,
+				6689EF681B299D4C0025B4B3 /* choose_account_btn_icon.png in Resources */,
 				66E1FC201B0B719D002C4EC0 /* Images.xcassets in Resources */,
 				669F08651B0F067C00767771 /* white_logo.png in Resources */,
+				6689EF5F1B297A2A0025B4B3 /* DropdownListView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -438,8 +488,10 @@
 				66E1FC151B0B719D002C4EC0 /* AppDelegate.m in Sources */,
 				66701C0E1B145B8E006C8C68 /* TempusRegMsg.m in Sources */,
 				66E1FC181B0B719D002C4EC0 /* InfoPresentViewController.m in Sources */,
+				6689EF641B2996360025B4B3 /* DropdownListCell.m in Sources */,
 				66B9189A1B1D9A7200A86760 /* PeripheralDeviceManager.m in Sources */,
 				668AA63D1B0F3D2B004C8594 /* GoWebViewController.m in Sources */,
+				6689EF5E1B297A2A0025B4B3 /* DropdownListViewController.m in Sources */,
 				66B9189D1B1DA3E900A86760 /* TempusEmployee.m in Sources */,
 				66E1FC121B0B719D002C4EC0 /* main.m in Sources */,
 				66B918A81B1DD40E00A86760 /* TempusResult.m in Sources */,
@@ -468,10 +520,22 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		6689EF511B28420C0025B4B3 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				6689EF501B28420C0025B4B3 /* en */,
+				6689EF521B2842220025B4B3 /* nb */,
+				6689EF551B2843EC0025B4B3 /* sv */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
 		66E1FC1C1B0B719D002C4EC0 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
 				66E1FC1D1B0B719D002C4EC0 /* Base */,
+				6689EF4D1B2841720025B4B3 /* nb */,
+				6689EF531B2843EC0025B4B3 /* sv */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -480,6 +544,8 @@
 			isa = PBXVariantGroup;
 			children = (
 				66E1FC221B0B719D002C4EC0 /* Base */,
+				6689EF4E1B2841720025B4B3 /* nb */,
+				6689EF541B2843EC0025B4B3 /* sv */,
 			);
 			name = LaunchScreen.xib;
 			sourceTree = "<group>";

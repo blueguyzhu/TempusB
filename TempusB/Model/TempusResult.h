@@ -19,6 +19,6 @@
 - (void) setErrMsg: (NSString *)errMsg;
 - (NSError *) getErr;
 - (NSString *) getErrMsg;
-- (NSString *) errDescription;
+//- (NSString *) errDescription;
 
 @end

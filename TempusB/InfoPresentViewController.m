@@ -6,6 +6,7 @@
 //  Copyright (c) 2015 Tempus AS. All rights reserved.
 //
 
+#define kREG_MSG_DISP_LMT           20
 #define kUUID_STR                   @"f7826da6-4fa2-4e98-8024-bc5b71e0893e"
 #define kREGION_ID                  @"Tempus_Beacon"
 
@@ -17,6 +18,8 @@
 #import "TempusRemoteServiceResponseDelegate.h"
 #import "TempusResult.h"
 #import "RemoteRegEntry.h"
+#import "TempusRegMsg.h"
+#import "DBManager.h"
 #import <CocoaLumberjack.h>
 #import <CoreLocation/CoreLocation.h>
 
@@ -56,7 +59,7 @@ static NSString *tmpStaticStr = @"2015-12-01 12:30:41 This is an example message
 
 #pragma mark - Delegate of CLLocationManager
 - (void) locationManager:(CLLocationManager *)manager didStartMonitoringForRegion:(CLRegion *)region {
-    CLBeaconRegion *beaconRegion = (CLBeaconRegion *)region;
+    //CLBeaconRegion *beaconRegion = (CLBeaconRegion *)region;
     DDLogDebug(@"Did start to monitor region: %@", region.identifier);
 //    [manager startRangingBeaconsInRegion:beaconRegion];
 }
@@ -139,8 +142,13 @@ static NSString *tmpStaticStr = @"2015-12-01 12:30:41 This is an example message
         RemoteRegEntry *regEntry = [[RemoteRegEntry alloc] init];
         regEntry.regType = IN;
         regEntry.employeeId = employee.identifier;
+        NSDate *regDate = [[NSDate alloc] init];
         TempusResult *result = [TempusRemoteService regInOut:regEntry withSuccess:^(AFHTTPRequestOperation *operation, id responseObj) {
             DDLogDebug(@"%@ has registered in.", shortId);
+            TempusRegMsg *msg = [[TempusRegMsg alloc] init];
+            msg.time = regDate;
+            msg.msg = [NSString stringWithFormat:@"%@ %@", employee.name, NSLocalizedString(@"REG_IN", @"Register in")];
+            [self newMsg:msg];
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             DDLogDebug(@"%@ registered in failed. check your network connection!", shortId);
         }];
@@ -164,8 +172,7 @@ static NSString *tmpStaticStr = @"2015-12-01 12:30:41 This is an example message
 
 
 - (NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    //return [self.msgBuf count];
-    return 2;
+    return [self.msgBuf count];
 }
 
 
@@ -183,7 +190,15 @@ static NSString *tmpStaticStr = @"2015-12-01 12:30:41 This is an example message
     label.numberOfLines = 0;
     label.lineBreakMode = NSLineBreakByWordWrapping;
     
-    [label setText: tmpStaticStr];
+    NSLocale *currentLocale = [NSLocale currentLocale];
+    NSString *dateTemplate = @"yyyyMMddHHmmSS";
+    NSString *formatStr = [NSDateFormatter dateFormatFromTemplate:dateTemplate options:0 locale:currentLocale];
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:formatStr];
+    
+    TempusRegMsg *tempusRegMsg = [self.msgBuf objectAtIndex:indexPath.row];
+    NSString *msgStr = [formatter stringFromDate:tempusRegMsg.time];
+    [label setText:[msgStr stringByAppendingString:tempusRegMsg.msg]];
     
     return cell;
 }
@@ -213,7 +228,7 @@ static NSString *tmpStaticStr = @"2015-12-01 12:30:41 This is an example message
 
 #pragma mark - Private Methods
 - (void) initiation {
-    self.msgBuf = [[NSArray alloc] init];
+    self.msgBuf = [[DBManager sharedInstance] regMsgsWithLimit:kREG_MSG_DISP_LMT];
     
     //instantiate peripheral device manager
     self.peripheralDeviceManager = [PeripheralDeviceManager sharedManager];
@@ -238,8 +253,10 @@ static NSString *tmpStaticStr = @"2015-12-01 12:30:41 This is an example message
 }
 
 
-- (void) newMsg: (NSString *) msg {
+- (void) newMsg: (TempusRegMsg *) msg {
     //add to msg buf;
+    [[DBManager sharedInstance] storeRegMsg:msg];
+    self.msgBuf = [[DBManager sharedInstance] regMsgsWithLimit:kREG_MSG_DISP_LMT];
     [self.msgTableView reloadData];
 }
 

@@ -17,7 +17,7 @@
 - (instancetype) init {
     self = [super init];
     if (self) {
-        self.time = [[NSDate date] timeIntervalSince1970];
+        self.time = [NSDate date];
         self.msg = nil;
     }
     

@@ -96,7 +96,7 @@ static int msDbOpenCount = 0;
         return NO;
     }
     
-    sqlite3_bind_int64(statement, 1, msg.time);
+    sqlite3_bind_int64(statement, 1, floor([msg.time timeIntervalSince1970] * 1000.));
     sqlite3_bind_text(statement, 2, [msg.msg UTF8String], (int)[msg.msg length], nil);
     
     result = sqlite3_step(statement);
@@ -109,6 +109,39 @@ static int msDbOpenCount = 0;
     [self releaseDb];
     
     return SQLITE_DONE == result;
+}
+
+
+- (NSArray *) regMsgsWithLimit:(NSInteger)limit {
+    NSString *query = [NSString stringWithFormat:@"SELECT date, content FROM %@ LIMIT %ld", kREG_MSG_TABLE_NAME, limit];
+    sqlite3_stmt *statement = nil;
+    
+    [self retainDb];
+    
+    int result = sqlite3_prepare(msDb, [query UTF8String], -1, &statement, nil);
+    if (SQLITE_OK != result) {
+        DDLogError(@"Sqlite error code: %d", result);
+        DDLogError(@"%s", sqlite3_errmsg(msDb));
+        if (statement)
+            sqlite3_finalize(statement);
+        [self releaseDb];
+        
+        return nil;
+    }
+    
+    NSMutableArray *msgs = [[NSMutableArray alloc] init];
+    while (SQLITE_ROW == sqlite3_step(statement)) {
+        TempusRegMsg *regMsg = [[TempusRegMsg alloc] init];
+        regMsg.time = [[NSDate alloc] initWithTimeIntervalSince1970:sqlite3_column_int64(statement, 0) / 1000. ];
+        regMsg.msg = [NSString stringWithUTF8String: (const char *) sqlite3_column_text(statement, 1)];
+        
+        [msgs addObject:regMsg];
+    }
+    
+    sqlite3_finalize(statement);
+    [self releaseDb];
+    
+    return msgs;
 }
 
 

@@ -1,0 +1,9 @@
+
+/* Class = "UITabBarItem"; title = "Message"; ObjectID = "acW-dT-cKf"; */
+"acW-dT-cKf.title" = "Meddelande";
+
+/* Class = "UITabBarItem"; title = "Me"; ObjectID = "cPa-gy-q4n"; */
+"cPa-gy-q4n.title" = "Konto";
+
+/* Class = "UITabBarItem"; title = "Go"; ObjectID = "nAo-Qw-EBQ"; */
+"nAo-Qw-EBQ.title" = "Go";
