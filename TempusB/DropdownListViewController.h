@@ -12,4 +12,10 @@
 
 @property (nonatomic, weak) IBOutlet UITableView *tableView;
 
+- (void) registerListIcons: (NSArray *) iconNames;
+- (void) registerListTitles: (NSArray *) titles;
+
+- (void) registerRowSelectAction: (SEL)action ofTarget: (id)target;
+- (void) registerRowSelectAction:(SEL)action ofTarget:(id)target atRow: (NSUInteger)row;
+
 @end

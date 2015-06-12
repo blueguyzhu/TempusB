@@ -7,13 +7,17 @@
 //
 
 #define kCELL_NAME              @"dropdownListCell"
-#define kOPTS                   @[@"CHOOSE_ACCOUNT", @"SCAN_QR_CODE", @"SETTINGS"]
-#define kOPT_ICONS              @[@"choose_account_btn_icon.png", @"scan_btn_icon.png", @"setting_btn_icon.png"]
 
 #import "DropdownListViewController.h"
 #import "DropdownListCell.h"
+#import "OptionSelectResponse.h"
+
 
 @interface DropdownListViewController ()
+
+@property (nonatomic, assign) SEL generalRowSelectAction;
+@property (nonatomic, strong) id generalRowSelectActionTarget;
+@property (nonatomic, strong) NSMutableDictionary *rowSelectActions;
 
 @end
 
@@ -25,23 +29,46 @@ static NSArray *msOptionIcons = nil;
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
-    
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
-    
-    msOptions = kOPTS;
-    msOptionIcons = kOPT_ICONS;
-    
     UINib *cellNib = [UINib nibWithNibName:@"DropdownListCell" bundle:nil];
     [self.tableView registerNib:cellNib forCellReuseIdentifier:kCELL_NAME];
 }
+
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+
+#pragma mark - public methods
+- (void) registerRowSelectAction:(SEL)action ofTarget:(id)target {
+    self.generalRowSelectAction = action;
+    self.generalRowSelectActionTarget = target;
+}
+
+
+- (void) registerRowSelectAction:(SEL)action ofTarget:(id)target atRow:(NSUInteger)row {
+    if (!self.rowSelectActions)
+        self.rowSelectActions = [[NSMutableDictionary alloc] init];
+    
+    NSNumber *numFormatRow = [[NSNumber alloc] initWithUnsignedInteger:row];
+    OptionSelectResponse *opSelResp = [[OptionSelectResponse alloc] init];
+    opSelResp.action = action;
+    opSelResp.target = target;
+    [self.rowSelectActions setObject:opSelResp forKey:numFormatRow];
+}
+
+
+- (void) registerListIcons:(NSArray *)iconNames {
+    msOptionIcons = iconNames;
+}
+
+
+- (void) registerListTitles:(NSArray *)titles {
+    msOptions = titles;
+}
+
 
 #pragma mark - Table view data source
 
@@ -102,21 +129,30 @@ static NSArray *msOptionIcons = nil;
 }
 */
 
-/*
-#pragma mark - Table view delegate
 
+#pragma mark - Table view delegate
 // In a xib-based application, navigation from a table can be handled in -tableView:didSelectRowAtIndexPath:
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     // Navigation logic may go here, for example:
     // Create the next view controller.
-    <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:<#@"Nib name"#> bundle:nil];
+    if (self.generalRowSelectActionTarget) {
+        [self.generalRowSelectActionTarget performSelector:self.generalRowSelectAction];
+    }
+
+    if (self.rowSelectActions) {
+        OptionSelectResponse *opSelResp = [self.rowSelectActions objectForKey:[NSNumber numberWithInteger:indexPath.row]];
+        if (opSelResp) {
+            [opSelResp.target performSelector:opSelResp.action];
+        }
+    }
     
-    // Pass the selected object to the new view controller.
+    [tableView deselectRowAtIndexPath:indexPath animated:NO];
     
-    // Push the view controller.
-    [self.navigationController pushViewController:detailViewController animated:YES];
+    //[self.navigationController pushViewController:detailViewController animated:YES];
 }
-*/
+
+
+
 
 /*
 #pragma mark - Navigation

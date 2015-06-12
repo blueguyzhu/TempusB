@@ -16,13 +16,13 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="meF-8g-bo7">
-                        <rect key="frame" x="8" y="8" width="28" height="28"/>
+                        <rect key="frame" x="8" y="8" width="27" height="27"/>
                         <constraints>
                             <constraint firstAttribute="width" secondItem="meF-8g-bo7" secondAttribute="height" multiplier="1:1" id="DM8-qY-utW"/>
                         </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tgd-dD-Ofd">
-                        <rect key="frame" x="44" y="12" width="268" height="21"/>
+                        <rect key="frame" x="43" y="11" width="269" height="21"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
