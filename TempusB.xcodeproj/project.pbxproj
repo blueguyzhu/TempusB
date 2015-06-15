@@ -25,6 +25,7 @@
 		6689EF6A1B29A74A0025B4B3 /* setting_btn_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 6689EF691B29A74A0025B4B3 /* setting_btn_icon.png */; };
 		668AA63B1B0F2639004C8594 /* users_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 668AA63A1B0F2639004C8594 /* users_icon.png */; };
 		668AA63D1B0F3D2B004C8594 /* GoWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 668AA63C1B0F3D2B004C8594 /* GoWebViewController.m */; };
+		669614701B2EBEF4009F339D /* QRScannerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6696146F1B2EBEF4009F339D /* QRScannerViewController.m */; };
 		669F08651B0F067C00767771 /* white_logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 669F08641B0F067C00767771 /* white_logo.png */; };
 		669F08671B0F06B300767771 /* background.png in Resources */ = {isa = PBXBuildFile; fileRef = 669F08661B0F06B300767771 /* background.png */; };
 		669F08691B0F10FF00767771 /* ibeacon_logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 669F08681B0F10FF00767771 /* ibeacon_logo.png */; };
@@ -87,6 +88,8 @@
 		668AA63A1B0F2639004C8594 /* users_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = users_icon.png; sourceTree = "<group>"; };
 		668AA63C1B0F3D2B004C8594 /* GoWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GoWebViewController.m; sourceTree = "<group>"; };
 		668AA63E1B0F3D40004C8594 /* GoWebViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GoWebViewController.h; sourceTree = "<group>"; };
+		6696146E1B2EBEF4009F339D /* QRScannerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QRScannerViewController.h; sourceTree = "<group>"; };
+		6696146F1B2EBEF4009F339D /* QRScannerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QRScannerViewController.m; sourceTree = "<group>"; };
 		669F08641B0F067C00767771 /* white_logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = white_logo.png; sourceTree = "<group>"; };
 		669F08661B0F06B300767771 /* background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = background.png; sourceTree = "<group>"; };
 		669F08681B0F10FF00767771 /* ibeacon_logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ibeacon_logo.png; sourceTree = "<group>"; };
@@ -317,6 +320,8 @@
 				6689EF5C1B297A2A0025B4B3 /* DropdownListViewController.m */,
 				3317D3971B2B376900F41E91 /* AccountSelectVC.h */,
 				3317D3981B2B376900F41E91 /* AccountSelectVC.m */,
+				6696146E1B2EBEF4009F339D /* QRScannerViewController.h */,
+				6696146F1B2EBEF4009F339D /* QRScannerViewController.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -501,6 +506,7 @@
 				66E1FC181B0B719D002C4EC0 /* InfoPresentViewController.m in Sources */,
 				6689EF641B2996360025B4B3 /* DropdownListCell.m in Sources */,
 				66B9189A1B1D9A7200A86760 /* PeripheralDeviceManager.m in Sources */,
+				669614701B2EBEF4009F339D /* QRScannerViewController.m in Sources */,
 				668AA63D1B0F3D2B004C8594 /* GoWebViewController.m in Sources */,
 				6689EF5E1B297A2A0025B4B3 /* DropdownListViewController.m in Sources */,
 				66B9189D1B1DA3E900A86760 /* TempusEmployee.m in Sources */,

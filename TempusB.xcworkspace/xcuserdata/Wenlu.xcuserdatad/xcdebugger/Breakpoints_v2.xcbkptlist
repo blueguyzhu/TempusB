@@ -9,13 +9,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "TempusB/SettingsViewController.m"
-            timestampString = "455722539.333171"
+            filePath = "TempusB/QRScannerViewController.m"
+            timestampString = "456064000.51703"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "25"
-            endingLineNumber = "25"
-            landmarkName = "-viewDidLoad"
+            startingLineNumber = "140"
+            endingLineNumber = "140"
+            landmarkName = "-shouldAutorotate"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

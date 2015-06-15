@@ -6,7 +6,7 @@
 //  Copyright (c) 2015 Tempus AS. All rights reserved.
 //
 
-#define kREMOTE_BASE_URL                    @"https://swa201403.servicebus.windows.net/zeroapi/"
+#define kREMOTE_BASE_URL                    @"https://swa201403.servicebus.windows.net/zeroapi"
 #define kTIMEOUT_INTERVAL                   60.0
 
 #import "TempusRemoteService.h"
@@ -37,7 +37,7 @@
         return [[TempusResult alloc] initWithErr:err];
     }
     
-    NSURL *url = [NSURL URLWithString:[kREMOTE_BASE_URL stringByAppendingString:@"entry"]];
+    NSURL *url = [NSURL URLWithString:[kREMOTE_BASE_URL stringByAppendingPathComponent:@"entry"]];
     NSMutableURLRequest *req = [[NSMutableURLRequest alloc] initWithURL:url];
     
     [req setHTTPMethod:@"POST"];
@@ -52,6 +52,18 @@
     [[NSOperationQueue mainQueue] addOperation:op];
     
     return [[TempusResult alloc] init];
+}
+
+
++ (TempusResult *) employeeList {
+    NSURL *url = [NSURL URLWithString:[kREMOTE_BASE_URL stringByAppendingPathComponent:@"ansatt"]];
+    NSMutableURLRequest *req = [[NSMutableURLRequest alloc] initWithURL:url];
+    
+    [req setTimeoutInterval:kTIMEOUT_INTERVAL];
+    [req setHTTPMethod:@"GET"];
+    
+    AFHTTPRequestOperation *op = [[AFHTTPRequestOperation alloc] initWithRequest:req];
+    op.responseSerializer = [AFJSONResponseSerializer serializer];
 }
 
 @end

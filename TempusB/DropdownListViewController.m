@@ -136,13 +136,15 @@ static NSArray *msOptionIcons = nil;
     // Navigation logic may go here, for example:
     // Create the next view controller.
     if (self.generalRowSelectActionTarget) {
-        [self.generalRowSelectActionTarget performSelector:self.generalRowSelectAction];
+        IMP imp = [self.generalRowSelectActionTarget methodForSelector:self.generalRowSelectAction];
+        void (* func) (id, SEL) = (void *)imp;
+        func (self.generalRowSelectActionTarget, self.generalRowSelectAction);
     }
 
     if (self.rowSelectActions) {
         OptionSelectResponse *opSelResp = [self.rowSelectActions objectForKey:[NSNumber numberWithInteger:indexPath.row]];
         if (opSelResp) {
-            [opSelResp.target performSelector:opSelResp.action];
+            ((void (*) (id, SEL))[opSelResp.target methodForSelector:opSelResp.action])(opSelResp.target, opSelResp.action);
         }
     }
     

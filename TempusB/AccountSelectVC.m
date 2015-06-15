@@ -8,6 +8,7 @@
 
 #import "AccountSelectVC.h"
 #import "TempusEmployee.h"
+#import "TempusRemoteService.h"
 
 @interface AccountSelectVC ()
 @property (nonatomic, weak) UITableView *weakView;
@@ -35,6 +36,10 @@
     self.weakView.dataSource = self;
     
     self.clearsSelectionOnViewWillAppear = YES;
+    
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
+        TempusRemoteService *tRmtService = [TempusRemoteService ]
+    })
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;

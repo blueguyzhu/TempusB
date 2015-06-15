@@ -8,9 +8,11 @@
 #define kOPTS                   @[@"CHOOSE_ACCOUNT", @"SCAN_QR_CODE", @"SETTINGS"]
 #define kOPT_ICONS              @[@"choose_account_btn_icon.png", @"scan_btn_icon.png", @"setting_btn_icon.png"]
 
+#import "CocoaLumberjack/CocoaLumberjack.h"
 #import "SettingsViewController.h"
 #import "DropdownListViewController.h"
 #import "AccountSelectVC.h"
+#import "QRScannerViewController.h"
 
 @interface SettingsViewController () <UIGestureRecognizerDelegate>
 
@@ -86,6 +88,17 @@
 }
 
 
+- (void) presentScannerView {
+    QRScannerViewController *QRScannerVC = [[QRScannerViewController alloc] initWithCompletion:^(NSString *shortId) {
+        DDLogDebug(@"%@", shortId);
+        dispatch_sync(dispatch_get_main_queue(), ^{
+            [self.navigationController popViewControllerAnimated:YES];
+        });
+    }];
+    [self.navigationController pushViewController:QRScannerVC animated:YES];
+}
+
+
 - (void) setupSubviews {
 
     /*[[self.navigationController navigationBar] setBackgroundImage:[[UIImage imageNamed:@"background.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(0, 0, 0, 0)] forBarMetrics:UIBarMetricsDefault];
@@ -100,6 +113,7 @@
     [self.dropdownListVC registerListIcons:kOPT_ICONS];
     [self.dropdownListVC registerRowSelectAction:@selector(hideListView) ofTarget:self];
     [self.dropdownListVC registerRowSelectAction:@selector(presentAccountSelectView) ofTarget:self atRow:0];
+    [self.dropdownListVC registerRowSelectAction:@selector(presentScannerView) ofTarget:self atRow:1];
     
     [self.view addSubview:self.dropdownListVC.view];
     /*
