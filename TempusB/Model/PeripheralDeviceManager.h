@@ -15,5 +15,7 @@
 + (PeripheralDeviceManager *) sharedManager;
 
 - (NSString *) shortIdByMajor: (NSNumber *)major andMinor: (NSNumber *)minor;
-- (TempusEmployee *) employeeWithShortId: (NSString *)shortId;
+- (NSString *) shortIdByMajorInt: (NSInteger)major andMinorInt: (NSInteger)minor;
+//- (TempusEmployee *) employeeWithShortId: (NSString *)shortId;
+- (BOOL) beaconExists: (NSString *)shortId;
 @end

@@ -15,7 +15,7 @@ typedef enum {
     OUT = 1
 } RemoteRegType;
 
-@property (nonatomic, strong) NSNumber *employeeId;
+@property (nonatomic, strong) NSString *employeeId;
 @property (nonatomic, assign) RemoteRegType regType;
 
 @end

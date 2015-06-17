@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface TempusBeacon : NSObject
+@interface TempusBeacon : NSObject <NSCopying>
 
 @property (nonatomic, strong) NSString *shortId;
 @property (nonatomic, assign) NSInteger major;

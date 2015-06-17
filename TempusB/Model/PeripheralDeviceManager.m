@@ -13,9 +13,10 @@
 
 @interface PeripheralDeviceManager ()
 
-@property (nonatomic, strong) NSMutableDictionary *devices;
-@property (nonatomic, strong) NSMutableArray *employeeList;
-@property (nonatomic, strong) NSMutableDictionary *employees;
+@property (nonatomic, strong) NSMutableDictionary *devices; //Major -> (Minor -> TempusBeacon);
+@property (nonatomic, strong) NSMutableDictionary *deviceList;  //shortId -> TempusBeacon;
+//@property (atomic, strong) NSMutableArray *employeeList;    //TempusEmployee list
+//@property (atomic, strong) NSMutableDictionary *employees;  //shortId -> TempusEmployee
 
 @end
 
@@ -49,8 +50,23 @@
 }
 
 
+- (NSString *) shortIdByMajorInt:(NSInteger)major andMinorInt:(NSInteger)minor {
+    NSNumber *majorNum = [NSNumber numberWithInteger:major];
+    NSNumber *minorNum = [NSNumber numberWithInteger:minor];
+    
+    return [self shortIdByMajor:majorNum andMinor:minorNum];
+}
+
+
+/*
 - (TempusEmployee *)employeeWithShortId:(NSString *)shortId {
     return self.employees[shortId];
+}
+ */
+
+
+- (BOOL) beaconExists:(NSString *)shortId {
+    return [self.deviceList objectForKey:shortId] != nil;
 }
 
 
@@ -62,9 +78,12 @@
     
     if (self) {
         //load beacon device list from DB
-        self.devices = [[NSMutableDictionary alloc] init];
         NSArray *beaconList = [[DBManager sharedInstance] beaconDeviceList];
+        self.devices = [[NSMutableDictionary alloc] initWithCapacity:beaconList.count];
+        self.deviceList = [[NSMutableDictionary alloc] initWithCapacity:beaconList.count];
         for (TempusBeacon *tempusBeacon in beaconList) {
+            [self.deviceList setObject:tempusBeacon forKey:tempusBeacon.shortId];
+            
             NSMutableDictionary *beaconsWithSameMajor = [self.devices objectForKey:[NSNumber numberWithLong:tempusBeacon.major]];
             if (beaconsWithSameMajor) {
                 [beaconsWithSameMajor setObject:tempusBeacon forKey:[NSNumber numberWithLong:tempusBeacon.minor]];

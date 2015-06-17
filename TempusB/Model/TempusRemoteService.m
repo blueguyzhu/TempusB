@@ -13,14 +13,26 @@
 #import "RemoteRegEntry.h"
 #import "AFNetworking.h"
 #import "TempusResult.h"
+#import "CocoaLumberjack/CocoaLumberjack.h"
 
 
 @interface TempusRemoteService () 
-
 @end
 
 
 @implementation TempusRemoteService
+
+static NSOperationQueue *msTempusRemoteServiceQue = nil;
+
++ (NSOperationQueue *) tempusRemoteServiceQue {
+        static dispatch_once_t onceToken = 0;
+    dispatch_once(&onceToken, ^{
+        msTempusRemoteServiceQue = [[NSOperationQueue alloc] init];
+        msTempusRemoteServiceQue.name = @"no.tempus.tempusB.queue.remoteService";
+    });
+    
+    return msTempusRemoteServiceQue;
+}
 
 + (TempusResult *) regInOut:(RemoteRegEntry *)entryInfo
                 withSuccess: (void (^)(AFHTTPRequestOperation *operation, id responseObj))suc
@@ -42,20 +54,21 @@
     
     [req setHTTPMethod:@"POST"];
     [req setTimeoutInterval:kTIMEOUT_INTERVAL];
-    [req setValue:@"application/json" forKey:@"Content-TypContent-Typee"];
+    [req setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
     [req setHTTPBody:jsonData];
     
     AFHTTPRequestOperation *op = [[AFHTTPRequestOperation alloc] initWithRequest:req];
-    op.responseSerializer = [AFJSONResponseSerializer serializer];
+    //op.responseSerializer = [AFJSONResponseSerializer serializer];
     [op setCompletionBlockWithSuccess:suc failure:failure];
     
-    [[NSOperationQueue mainQueue] addOperation:op];
+    [[TempusRemoteService tempusRemoteServiceQue] addOperation:op];
     
-    return [[TempusResult alloc] init];
+    return nil;
 }
 
 
-+ (TempusResult *) employeeList {
++ (TempusResult *) employeeListWithSuccess: (void (^)(AFHTTPRequestOperation *op, id repObj))suc
+                                   failure: (void (^)(AFHTTPRequestOperation *op, NSError *err)) failure {
     NSURL *url = [NSURL URLWithString:[kREMOTE_BASE_URL stringByAppendingPathComponent:@"ansatt"]];
     NSMutableURLRequest *req = [[NSMutableURLRequest alloc] initWithURL:url];
     
@@ -64,6 +77,11 @@
     
     AFHTTPRequestOperation *op = [[AFHTTPRequestOperation alloc] initWithRequest:req];
     op.responseSerializer = [AFJSONResponseSerializer serializer];
+    [op setCompletionBlockWithSuccess:suc failure:failure];
+    
+    [[TempusRemoteService tempusRemoteServiceQue] addOperation:op];
+    
+    return nil;
 }
 
 @end

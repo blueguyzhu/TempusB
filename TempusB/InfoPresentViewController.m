@@ -9,6 +9,7 @@
 #define kREG_MSG_DISP_LMT           20
 #define kUUID_STR                   @"f7826da6-4fa2-4e98-8024-bc5b71e0893e"
 #define kREGION_ID                  @"Tempus_Beacon"
+#define kBEACON_OUT_OF_RANGE_LIMIT  10
 
 #import "InfoPresentViewController.h"
 #import "NSString+HeightCalc.h"
@@ -19,7 +20,9 @@
 #import "TempusResult.h"
 #import "RemoteRegEntry.h"
 #import "TempusRegMsg.h"
+#import "TempusBeacon.h"
 #import "DBManager.h"
+#import "LocalDataAccessor.h"
 #import <CocoaLumberjack.h>
 #import <CoreLocation/CoreLocation.h>
 
@@ -30,10 +33,11 @@
 @property (nonatomic, strong) NSArray *msgBuf;
 @property (nonatomic, strong) CLLocationManager *locManager;
 @property (nonatomic, strong) CLBeaconRegion *beaconRegion;
-@property (nonatomic, strong) NSMutableArray *registeredBeaconsMajor;
-@property (nonatomic, strong) NSMutableDictionary *registeredBeaconsCounter;
-@property (nonatomic, strong) PeripheralDeviceManager *peripheralDeviceManager;
+@property (nonatomic, strong) NSMutableArray *beingRangedBeacons;   //tempusBeacons which are being ranged
+@property (nonatomic, strong) NSMutableDictionary *beingRangedBeaconsCounter;    //it contains beacons and counters which are being tracked currently
+@property (nonatomic, strong) NSMutableArray *cachedRegEntries;
 
+@property (nonatomic, strong) PeripheralDeviceManager *peripheralDeviceManager; //it contains all the beacons
 @end
 
 
@@ -55,6 +59,12 @@ static NSString *tmpStaticStr = @"2015-12-01 12:30:41 This is an example message
     // Dispose of any resources that can be recreated.
 }
 
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    self.msgBuf = [[DBManager sharedInstance] regMsgsWithLimit:kREG_MSG_DISP_LMT];
+    [self.msgTableView reloadData];
+}
 
 
 #pragma mark - Delegate of CLLocationManager
@@ -107,19 +117,26 @@ static NSString *tmpStaticStr = @"2015-12-01 12:30:41 This is an example message
     DDLogInfo(@"Found %ld beacons in region %@", beacons.count, region.identifier);
     
     for (CLBeacon *beacon in beacons) {
+        TempusBeacon *tempusBeacon = [[TempusBeacon alloc] init];
+        tempusBeacon.major = [beacon.major integerValue];
+        tempusBeacon.minor = [beacon.minor integerValue];
         //exists already
-        if ([self.registeredBeaconsMajor containsObject:beacon.major]) {
+        //if ([self.registeredBeaconsMajor containsObject:beacon.major]) {
+        if ([self.beingRangedBeacons containsObject:tempusBeacon]) {
             NSString *shortId = [self.peripheralDeviceManager shortIdByMajor:beacon.major andMinor:beacon.minor];
-            
+        
             //the shortId has been disconnected with previous employee
-            if (shortId && shortId.length && ![self.peripheralDeviceManager employeeWithShortId:shortId]) {
+            if (shortId && shortId.length && ![[[LocalDataAccessor sharedInstance] localAccount].shortId isEqualToString:shortId]) {
                 DDLogInfo(@"Beacon (%@, %@, %@) has been disconnected with the employee. \nRemoving it from registred beacon list...",
                           beacon.major, beacon.minor, shortId);
-                [self.registeredBeaconsMajor removeObject:beacon.major];
-                [self.registeredBeaconsCounter removeObjectForKey:beacon.major];
+                //[self.registeredBeaconsMajor removeObject:beacon.major];
+                [self.beingRangedBeacons removeObject:tempusBeacon];
+                //[self.registeredBeaconsCounter removeObjectForKey:beacon.major];
+                [self.beingRangedBeaconsCounter removeObjectForKey:tempusBeacon];
             }else { //update counter
                 DDLogInfo(@"Range beacon (%@, %@, %@). Updating counter...", beacon.major, beacon.minor, shortId);
-                self.registeredBeaconsCounter[beacon.major] = @0;
+                //self.registeredBeaconsCounter[beacon.major] = @0;
+                self.beingRangedBeaconsCounter[tempusBeacon] = @0;
             }
             
             continue;
@@ -127,32 +144,47 @@ static NSString *tmpStaticStr = @"2015-12-01 12:30:41 This is an example message
         
         //new beacon detected
         NSString *shortId = [self.peripheralDeviceManager shortIdByMajor:beacon.major andMinor:beacon.minor];
-        if (!shortId || shortId.length == 0) { //beacon is not in the to-be-monitored device list
+        
+        //beacon is not in the to-be-monitored device list
+        if (!shortId || shortId.length == 0) {
             DDLogDebug(@"Beacon (%@, %@) is not in the device list. Ignore it.", beacon.major, beacon.minor);
             continue;
         }
+        
+        tempusBeacon.shortId = shortId;
+        
         //the beacon is not assigned to anyone
-        TempusEmployee *employee = [self.peripheralDeviceManager employeeWithShortId:shortId];
-        if (!employee) {
+        TempusEmployee *employee = [[LocalDataAccessor sharedInstance] localAccount];
+        if (!(employee && [employee.shortId isEqualToString:shortId])) {
             DDLogDebug(@"Beacon (%@, %@) is in the device list, but not assigned to any employee. Ignore it.", beacon.major, beacon.minor);
             continue;
         }
-        //the beacon has been assigned to employee
+        
+        //the beacon has been assigned to employee,
+        //then send registration request to server
         DDLogInfo(@"Range new beacon (%@, %@, %@) with employee: %@. \nRegistering to server...", beacon.major, beacon.minor, shortId, employee.name);
+        [self.beingRangedBeacons addObject:tempusBeacon];
         RemoteRegEntry *regEntry = [[RemoteRegEntry alloc] init];
         regEntry.regType = IN;
         regEntry.employeeId = employee.identifier;
+        
         NSDate *regDate = [[NSDate alloc] init];
+        
+        //if suc, add the beacon to the being tracked collection
+        //else, do nothing, waiting for the beacon to be ranged again
         TempusResult *result = [TempusRemoteService regInOut:regEntry withSuccess:^(AFHTTPRequestOperation *operation, id responseObj) {
-            DDLogDebug(@"%@ has registered in.", shortId);
+            DDLogError(@"Employee (%@, %@) with shortId %@ registered in.", employee.name, employee.identifier, shortId);
+            [self.beingRangedBeaconsCounter setObject:@0 forKey:tempusBeacon];
             TempusRegMsg *msg = [[TempusRegMsg alloc] init];
             msg.time = regDate;
             msg.msg = [NSString stringWithFormat:@"%@ %@", employee.name, NSLocalizedString(@"REG_IN", @"Register in")];
             [self newMsg:msg];
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            DDLogDebug(@"%@ registered in failed. check your network connection!", shortId);
+            DDLogError(@"%@ registered in failed. check your network connection!", shortId);
+            DDLogError(@"%@", error.localizedDescription);
+            [self.beingRangedBeacons removeObject:tempusBeacon];
         }];
-        if (![result isOK]) {
+        if (result && ![result isOK]) {
             DDLogError(@"Register employee (%@, %@) with shortId %@ failed.", employee.name, employee.identifier, shortId);
             NSString *errMsg = [result getErrMsg];
             if (errMsg)
@@ -160,6 +192,53 @@ static NSString *tmpStaticStr = @"2015-12-01 12:30:41 This is an example message
             if ([result getErr])
                 DDLogError(@"%@", [result getErr].localizedDescription);
         }
+    }
+    
+    
+    //update counter
+    NSMutableArray *toBeRemovedBeacons = [[NSMutableArray alloc] init];
+    //for (NSNumber *major in [self.registeredBeaconsCounter allKeys]) {
+    [self.beingRangedBeaconsCounter enumerateKeysAndObjectsWithOptions:NSEnumerationConcurrent usingBlock:^(id key, id obj, BOOL *stop) {
+        NSUInteger counter = [((NSNumber *) obj) unsignedIntegerValue];
+        if (++counter > kBEACON_OUT_OF_RANGE_LIMIT) {
+            TempusEmployee *employee = [[LocalDataAccessor sharedInstance] localAccount];
+            
+            if (employee) {
+                RemoteRegEntry *regEntry = [[RemoteRegEntry alloc] init];
+                regEntry.regType = OUT;
+                regEntry.employeeId = employee.identifier;
+                
+                [self.cachedRegEntries addObject:regEntry];
+                
+                dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
+                    [TempusRemoteService regInOut:regEntry withSuccess:^(AFHTTPRequestOperation *operation, id responseObj) {
+                        DDLogInfo(@"Employee (%@, %@) registered out.", employee.name, employee.shortId);
+                        
+                        [self.cachedRegEntries removeObject:regEntry];
+                        
+                        NSDate *regDate = [[NSDate alloc] init];
+                        TempusRegMsg *msg = [[TempusRegMsg alloc] init];
+                        msg.time = regDate;
+                        msg.msg = [NSString stringWithFormat:@"%@ %@", employee.name, NSLocalizedString(@"REG_OUT", @"Register out")];
+                        [self newMsg:msg];
+                    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                        DDLogError(@"Employee (%@, %@) with shortId %@  could NOT registered out.", employee.name, employee.shortId, ((TempusBeacon *)key).shortId);
+                    }];
+                });
+                /*
+                 */
+            }
+            
+            [toBeRemovedBeacons addObject:key];
+        } else {
+            [self.beingRangedBeaconsCounter setObject:[NSNumber numberWithUnsignedInteger:counter] forKey:key];
+        }
+    }];
+    
+    //remove beacons from tracked array and counter dict
+    if (toBeRemovedBeacons.count) {
+        [self.beingRangedBeacons removeObjectsInArray:toBeRemovedBeacons];
+        [self.beingRangedBeaconsCounter removeObjectsForKeys:toBeRemovedBeacons];
     }
 }
 
@@ -184,20 +263,21 @@ static NSString *tmpStaticStr = @"2015-12-01 12:30:41 This is an example message
     UILabel *label = (UILabel *) [cell.contentView viewWithTag:10];
     [label setTextColor:[UIColor whiteColor]];
     UIFont *font = [UIFont systemFontOfSize:14.0f];
-    if (1 == indexPath.row)
-        font = [UIFont boldSystemFontOfSize:15.0f];
+    if (0 == indexPath.row)
+        font = [UIFont boldSystemFontOfSize:16.0f];
     [label setFont:font];
     label.numberOfLines = 0;
     label.lineBreakMode = NSLineBreakByWordWrapping;
     
     NSLocale *currentLocale = [NSLocale currentLocale];
-    NSString *dateTemplate = @"yyyyMMddHHmmSS";
+    NSString *dateTemplate = @"yyyyMMdd";
     NSString *formatStr = [NSDateFormatter dateFormatFromTemplate:dateTemplate options:0 locale:currentLocale];
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     [formatter setDateFormat:formatStr];
     
     TempusRegMsg *tempusRegMsg = [self.msgBuf objectAtIndex:indexPath.row];
     NSString *msgStr = [formatter stringFromDate:tempusRegMsg.time];
+    dateTemplate = @"HHmmss";
     [label setText:[msgStr stringByAppendingString:tempusRegMsg.msg]];
     
     return cell;
@@ -228,7 +308,9 @@ static NSString *tmpStaticStr = @"2015-12-01 12:30:41 This is an example message
 
 #pragma mark - Private Methods
 - (void) initiation {
-    self.msgBuf = [[DBManager sharedInstance] regMsgsWithLimit:kREG_MSG_DISP_LMT];
+    self.beingRangedBeacons = [[NSMutableArray alloc] init];
+    self.beingRangedBeaconsCounter = [[NSMutableDictionary alloc] init];
+    self.cachedRegEntries = [[NSMutableArray alloc] init];
     
     //instantiate peripheral device manager
     self.peripheralDeviceManager = [PeripheralDeviceManager sharedManager];
@@ -255,9 +337,10 @@ static NSString *tmpStaticStr = @"2015-12-01 12:30:41 This is an example message
 
 - (void) newMsg: (TempusRegMsg *) msg {
     //add to msg buf;
-    [[DBManager sharedInstance] storeRegMsg:msg];
-    self.msgBuf = [[DBManager sharedInstance] regMsgsWithLimit:kREG_MSG_DISP_LMT];
-    [self.msgTableView reloadData];
+    if ([[DBManager sharedInstance] storeRegMsg:msg]) {
+        self.msgBuf = [[DBManager sharedInstance] regMsgsWithLimit:kREG_MSG_DISP_LMT];
+        [self.msgTableView reloadData];
+    }
 }
 
 @end

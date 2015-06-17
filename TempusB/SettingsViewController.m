@@ -13,11 +13,14 @@
 #import "DropdownListViewController.h"
 #import "AccountSelectVC.h"
 #import "QRScannerViewController.h"
+#import "TempusEmployee.h"
+#import "LocalDataAccessor.h"
 
 @interface SettingsViewController () <UIGestureRecognizerDelegate>
 
 @property (nonatomic, strong) DropdownListViewController *dropdownListVC;
 @property (nonatomic, strong) UITapGestureRecognizer *tapGesRecognizer;
+@property (nonatomic, strong) TempusEmployee *curEmployee;
 
 @end
 
@@ -38,6 +41,18 @@
     [super viewWillAppear:animated];
     
     [self.navigationController setNavigationBarHidden:YES animated:NO];
+    
+    self.curEmployee = [[LocalDataAccessor sharedInstance] localAccount];
+    if (self.curEmployee) {
+        [self.accDispNameLabel setText:self.curEmployee.name];
+        if (self.curEmployee.shortId && self.curEmployee.shortId.length)
+            [self.shortIdLabel setText:self.curEmployee.shortId];
+        else
+            [self.shortIdLabel setText:NSLocalizedString(@"SCAN_QR_CODE", @"Scan a QR code")];
+    } else {
+        [self.accDispNameLabel setText:NSLocalizedString(@"CHOOSE_ACCOUNT", @"Choose an account from the list")];
+        [self.shortIdLabel setText:NSLocalizedString(@"SCAN_QR_CODE", @"Scan a QR code")];
+    }
 }
 
 
@@ -89,8 +104,20 @@
 
 
 - (void) presentScannerView {
+    if (!self.curEmployee) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil
+                                                        message:NSLocalizedString(@"CHOOSE_ACC_FIRST", @"select an account first")
+                                                       delegate:nil
+                                              cancelButtonTitle:@"OK"
+                                              otherButtonTitles:nil, nil];
+        [alert show];
+        return;
+    }
+    
     QRScannerViewController *QRScannerVC = [[QRScannerViewController alloc] initWithCompletion:^(NSString *shortId) {
         DDLogDebug(@"%@", shortId);
+        self.curEmployee.shortId = shortId;
+        [[LocalDataAccessor sharedInstance] storeLocalAccount:self.curEmployee];
         dispatch_sync(dispatch_get_main_queue(), ^{
             [self.navigationController popViewControllerAnimated:YES];
         });

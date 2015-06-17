@@ -11,6 +11,8 @@
 @interface SettingsViewController : UIViewController
 
 @property (nonatomic, weak) IBOutlet UIButton *actionMoreBtn;
+@property (nonatomic, weak) IBOutlet UILabel *accDispNameLabel;
+@property (nonatomic, weak) IBOutlet UILabel *shortIdLabel;
 
 - (IBAction)didTappedActionMoreBtn:(id)sender;
 

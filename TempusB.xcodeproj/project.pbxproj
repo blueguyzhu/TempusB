@@ -26,6 +26,9 @@
 		668AA63B1B0F2639004C8594 /* users_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 668AA63A1B0F2639004C8594 /* users_icon.png */; };
 		668AA63D1B0F3D2B004C8594 /* GoWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 668AA63C1B0F3D2B004C8594 /* GoWebViewController.m */; };
 		669614701B2EBEF4009F339D /* QRScannerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6696146F1B2EBEF4009F339D /* QRScannerViewController.m */; };
+		669614731B302448009F339D /* TempusRLDataParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 669614721B302448009F339D /* TempusRLDataParser.m */; };
+		669614761B30385C009F339D /* LightLocalStorageManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 669614751B30385C009F339D /* LightLocalStorageManager.m */; };
+		669614791B315268009F339D /* LocalDataAccessor.m in Sources */ = {isa = PBXBuildFile; fileRef = 669614781B315268009F339D /* LocalDataAccessor.m */; };
 		669F08651B0F067C00767771 /* white_logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 669F08641B0F067C00767771 /* white_logo.png */; };
 		669F08671B0F06B300767771 /* background.png in Resources */ = {isa = PBXBuildFile; fileRef = 669F08661B0F06B300767771 /* background.png */; };
 		669F08691B0F10FF00767771 /* ibeacon_logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 669F08681B0F10FF00767771 /* ibeacon_logo.png */; };
@@ -90,6 +93,12 @@
 		668AA63E1B0F3D40004C8594 /* GoWebViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GoWebViewController.h; sourceTree = "<group>"; };
 		6696146E1B2EBEF4009F339D /* QRScannerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QRScannerViewController.h; sourceTree = "<group>"; };
 		6696146F1B2EBEF4009F339D /* QRScannerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QRScannerViewController.m; sourceTree = "<group>"; };
+		669614711B302448009F339D /* TempusRLDataParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TempusRLDataParser.h; path = Model/TempusRLDataParser.h; sourceTree = "<group>"; };
+		669614721B302448009F339D /* TempusRLDataParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TempusRLDataParser.m; path = Model/TempusRLDataParser.m; sourceTree = "<group>"; };
+		669614741B30385C009F339D /* LightLocalStorageManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LightLocalStorageManager.h; path = Model/LightLocalStorageManager.h; sourceTree = "<group>"; };
+		669614751B30385C009F339D /* LightLocalStorageManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LightLocalStorageManager.m; path = Model/LightLocalStorageManager.m; sourceTree = "<group>"; };
+		669614771B315268009F339D /* LocalDataAccessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LocalDataAccessor.h; path = Model/LocalDataAccessor.h; sourceTree = "<group>"; };
+		669614781B315268009F339D /* LocalDataAccessor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LocalDataAccessor.m; path = Model/LocalDataAccessor.m; sourceTree = "<group>"; };
 		669F08641B0F067C00767771 /* white_logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = white_logo.png; sourceTree = "<group>"; };
 		669F08661B0F06B300767771 /* background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = background.png; sourceTree = "<group>"; };
 		669F08681B0F10FF00767771 /* ibeacon_logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ibeacon_logo.png; sourceTree = "<group>"; };
@@ -152,7 +161,7 @@
 			children = (
 				66B918A51B1DD37600A86760 /* TempusResult */,
 				66B9189E1B1DB07900A86760 /* TempusRemoteService */,
-				66701C111B14610C006C8C68 /* DBManager */,
+				66701C111B14610C006C8C68 /* LocalStorageManager */,
 				66701C0C1B14560A006C8C68 /* TempusRegMsg.h */,
 				66701C0D1B145B8E006C8C68 /* TempusRegMsg.m */,
 				66B918981B1D9A7200A86760 /* PeripheralDeviceManager.h */,
@@ -163,17 +172,21 @@
 				6689EF471B271B490025B4B3 /* TempusBeacon.m */,
 				33521C5B1B2B0FAF0099E214 /* OptionSelectResponse.h */,
 				33521C5C1B2B0FAF0099E214 /* OptionSelectResponse.m */,
+				669614771B315268009F339D /* LocalDataAccessor.h */,
+				669614781B315268009F339D /* LocalDataAccessor.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
 		};
-		66701C111B14610C006C8C68 /* DBManager */ = {
+		66701C111B14610C006C8C68 /* LocalStorageManager */ = {
 			isa = PBXGroup;
 			children = (
+				669614741B30385C009F339D /* LightLocalStorageManager.h */,
+				669614751B30385C009F339D /* LightLocalStorageManager.m */,
 				66701C121B146141006C8C68 /* DBManager.m */,
 				66701C141B146161006C8C68 /* DBManager.h */,
 			);
-			name = DBManager;
+			name = LocalStorageManager;
 			sourceTree = "<group>";
 		};
 		66701C151B1470A7006C8C68 /* ThirdParties */ = {
@@ -226,6 +239,8 @@
 				66B918A21B1DB7BC00A86760 /* TempusRemoteService.h */,
 				66B918A31B1DB7CE00A86760 /* TempusRemoteService.m */,
 				66B918C11B1DE01A00A86760 /* TempusRemoteServiceResponseDelegate.h */,
+				669614711B302448009F339D /* TempusRLDataParser.h */,
+				669614721B302448009F339D /* TempusRLDataParser.m */,
 			);
 			name = TempusRemoteService;
 			sourceTree = "<group>";
@@ -503,13 +518,16 @@
 				66E1FC151B0B719D002C4EC0 /* AppDelegate.m in Sources */,
 				33521C5D1B2B0FAF0099E214 /* OptionSelectResponse.m in Sources */,
 				66701C0E1B145B8E006C8C68 /* TempusRegMsg.m in Sources */,
+				669614791B315268009F339D /* LocalDataAccessor.m in Sources */,
 				66E1FC181B0B719D002C4EC0 /* InfoPresentViewController.m in Sources */,
 				6689EF641B2996360025B4B3 /* DropdownListCell.m in Sources */,
 				66B9189A1B1D9A7200A86760 /* PeripheralDeviceManager.m in Sources */,
 				669614701B2EBEF4009F339D /* QRScannerViewController.m in Sources */,
+				669614731B302448009F339D /* TempusRLDataParser.m in Sources */,
 				668AA63D1B0F3D2B004C8594 /* GoWebViewController.m in Sources */,
 				6689EF5E1B297A2A0025B4B3 /* DropdownListViewController.m in Sources */,
 				66B9189D1B1DA3E900A86760 /* TempusEmployee.m in Sources */,
+				669614761B30385C009F339D /* LightLocalStorageManager.m in Sources */,
 				66E1FC121B0B719D002C4EC0 /* main.m in Sources */,
 				66B918A81B1DD40E00A86760 /* TempusResult.m in Sources */,
 				6689EF481B271B490025B4B3 /* TempusBeacon.m in Sources */,

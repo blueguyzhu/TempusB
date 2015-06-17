@@ -113,7 +113,7 @@ static int msDbOpenCount = 0;
 
 
 - (NSArray *) regMsgsWithLimit:(NSInteger)limit {
-    NSString *query = [NSString stringWithFormat:@"SELECT date, content FROM %@ LIMIT %ld", kREG_MSG_TABLE_NAME, limit];
+    NSString *query = [NSString stringWithFormat:@"SELECT date, content FROM %@ ORDER BY _id DESC LIMIT %ld", kREG_MSG_TABLE_NAME, limit];
     sqlite3_stmt *statement = nil;
     
     [self retainDb];

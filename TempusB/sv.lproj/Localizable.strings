@@ -6,7 +6,7 @@
   Copyright (c) 2015 Tempus AS. All rights reserved.
 */
 
-"REG_UT" = "Inregistrerad";
+"REG_OUT" = "Inregistrerad";
 "REG_IN" = "Utregistrerad";
 "SUC" = "lyckades";
 "FAIL" = "misslyckades";
@@ -14,3 +14,4 @@
 "SCAN_QR_CODE" = "Avsökning";
 "SETTINGS" = "Inställningar";
 "CANCEL" = "Avbryt";
+"CHOOSE_ACC_FIRST" = "Välj ett konto först";

@@ -48,13 +48,15 @@
 
 #pragma mark - private methods
 - (void) initLogger {
-    [DDLog addLogger:[DDASLLogger sharedInstance]];
-    [DDLog addLogger:[DDTTYLogger sharedInstance]];
+    DDLogLevel ddLogLevel = DDLogLevelInfo;
+    [DDLog addLogger:[DDASLLogger sharedInstance] withLevel:ddLogLevel];
+    [DDLog addLogger:[DDTTYLogger sharedInstance] withLevel:ddLogLevel];
     
     DDFileLogger *fileLogger = [[DDFileLogger alloc] init];
     fileLogger.rollingFrequency = 60 * 60 * 24; //60 * 60 * 24 secs, 24 hours
     fileLogger.logFileManager.maximumNumberOfLogFiles = 15;
-    [DDLog addLogger:fileLogger];
+    [DDLog addLogger:fileLogger withLevel:ddLogLevel];
+    
 }
 
 @end

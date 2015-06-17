@@ -9,11 +9,15 @@
 #import "AccountSelectVC.h"
 #import "TempusEmployee.h"
 #import "TempusRemoteService.h"
+#import "TempusRLDataParser.h"
+#import "LocalDataAccessor.h"
+#import "CocoaLumberjack/CocoaLumberjack.h"
 
 @interface AccountSelectVC ()
 @property (nonatomic, weak) UITableView *weakView;
 @property (nonatomic, strong) NSArray *accounts;
 @property (nonatomic, assign) CGRect preferedFrame;
+//@property (nonatomic, strong) TempusEmployee *curEmployee;
 @end
 
 @implementation AccountSelectVC
@@ -37,9 +41,13 @@
     
     self.clearsSelectionOnViewWillAppear = YES;
     
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
-        TempusRemoteService *tRmtService = [TempusRemoteService ]
-    })
+    [TempusRemoteService  employeeListWithSuccess:^(AFHTTPRequestOperation *op, id repObj) {
+        self.accounts = [TempusRLDataParser R2LParseEmployeeList:repObj];
+        //self.curEmployee = employeeDict ? [[TempusEmployee alloc] initFromCocoaObj: employeeDict] : nil;
+        [self.weakView reloadData];
+    } failure:^(AFHTTPRequestOperation *op, NSError *err) {
+        ;
+    }];
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
@@ -75,14 +83,16 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"defaultCell" forIndexPath:indexPath];
+    static NSString *accountCell = @"plainCell";
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:accountCell];
     if (!cell)
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"defaultCell"];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:accountCell];
     
     TempusEmployee *account = [self.accounts objectAtIndexedSubscript:indexPath.row];
     [cell.textLabel setText:account.name];
     
-    if (3 == indexPath.row)
+    TempusEmployee *curEmployee = [[LocalDataAccessor sharedInstance] localAccount];
+    if (curEmployee && [curEmployee.identifier isEqualToString:account.identifier])
         [cell.textLabel setTextColor:[UIColor blueColor]];
     else
         [cell.textLabel setTextColor:[UIColor darkTextColor]];
@@ -127,7 +137,17 @@
 
 #pragma mark - UITableViewDelegate Methods
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    NSInteger row = indexPath.row;
     
+    TempusEmployee *selectedEmployee = self.accounts[row];
+    
+    BOOL suc = [[LocalDataAccessor sharedInstance] storeLocalAccount:selectedEmployee];
+    
+    if (!suc) {
+        DDLogError(@"Cannot store selected user");
+    }
+    
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 /*

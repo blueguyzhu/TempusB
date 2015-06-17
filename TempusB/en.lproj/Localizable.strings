@@ -6,7 +6,7 @@
   Copyright (c) 2015 Tempus AS. All rights reserved.
 */
 
-"REG_UT" = "Registered Out";
+"REG_OUT" = "Registered Out";
 "REG_IN" = "Registered In";
 "SUC" = "successfully";
 "FAIL" = "failed";
@@ -14,3 +14,4 @@
 "SCAN_QR_CODE" = "Scan";
 "SETTINGS" = "Settings";
 "CANCEL" = "Cancel";
+"CHOOSE_ACC_FIRST" = "Choose an account first";

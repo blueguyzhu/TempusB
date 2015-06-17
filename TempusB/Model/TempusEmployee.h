@@ -11,7 +11,10 @@
 @interface TempusEmployee : NSObject
 
 @property (nonatomic, strong) NSString *name;
-@property (nonatomic, strong) NSNumber *identifier;
+@property (nonatomic, strong) NSString *identifier;
 @property (nonatomic, strong) NSString *shortId;
+
+- (instancetype) initFromCocoaObj: (NSDictionary *)dict;
+- (NSDictionary *) toCocoaObj;
 
 @end

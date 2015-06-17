@@ -22,4 +22,7 @@
                 withSuccess: (void (^)(AFHTTPRequestOperation *operation, id responseObj))suc
                     failure: (void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
 
++ (TempusResult *) employeeListWithSuccess: (void (^)(AFHTTPRequestOperation *op, id repObj))suc
+                                   failure: (void (^)(AFHTTPRequestOperation *op, NSError *err)) failure;
+
 @end
