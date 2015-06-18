@@ -18,9 +18,10 @@
 #import "TempusRemoteService.h"
 #import "TempusRemoteServiceResponseDelegate.h"
 #import "TempusResult.h"
-#import "RemoteRegEntry.h"
+//#import "RemoteRegEntry.h"
 #import "TempusRegMsg.h"
 #import "TempusBeacon.h"
+#import "TempusInOutRegRecord.h"
 #import "DBManager.h"
 #import "LocalDataAccessor.h"
 #import <CocoaLumberjack.h>
@@ -38,6 +39,8 @@
 @property (nonatomic, strong) NSMutableArray *cachedRegEntries;
 
 @property (nonatomic, strong) PeripheralDeviceManager *peripheralDeviceManager; //it contains all the beacons
+
+@property (nonatomic, strong) TempusInOutRegRecord *lastInOutRegRecord;
 @end
 
 
@@ -64,6 +67,11 @@ static NSString *tmpStaticStr = @"2015-12-01 12:30:41 This is an example message
     [super viewDidAppear:animated];
     self.msgBuf = [[DBManager sharedInstance] regMsgsWithLimit:kREG_MSG_DISP_LMT];
     [self.msgTableView reloadData];
+    
+    self.lastInOutRegRecord = nil;
+    NSArray *regRecords = [[DBManager sharedInstance] lastRegRecordsWithLimit:1];
+    if (regRecords && regRecords.count)
+        self.lastInOutRegRecord = regRecords[0];
 }
 
 
@@ -164,34 +172,58 @@ static NSString *tmpStaticStr = @"2015-12-01 12:30:41 This is an example message
         //then send registration request to server
         DDLogInfo(@"Range new beacon (%@, %@, %@) with employee: %@. \nRegistering to server...", beacon.major, beacon.minor, shortId, employee.name);
         [self.beingRangedBeacons addObject:tempusBeacon];
+        /*
         RemoteRegEntry *regEntry = [[RemoteRegEntry alloc] init];
         regEntry.regType = IN;
         regEntry.employeeId = employee.identifier;
+         */
         
         NSDate *regDate = [[NSDate alloc] init];
+        TempusInOutRegRecord *regEntry = [[TempusInOutRegRecord alloc] init];
+        regEntry.type = kREG_TYPE_IN;
+        regEntry.userId = employee.identifier;
+        regEntry.beaconShortId = shortId;
+        regEntry.date = regDate;
         
-        //if suc, add the beacon to the being tracked collection
-        //else, do nothing, waiting for the beacon to be ranged again
-        TempusResult *result = [TempusRemoteService regInOut:regEntry withSuccess:^(AFHTTPRequestOperation *operation, id responseObj) {
-            DDLogError(@"Employee (%@, %@) with shortId %@ registered in.", employee.name, employee.identifier, shortId);
+        /*
+         * If the last registration is triggered by the same beacon as the same reg type
+         * just add the counter to the dictionary
+         */
+        if (![regEntry isEqual:self.lastInOutRegRecord]) {
+            /*
+             * if suc, add the beacon to the being tracked collection
+             * else, do nothing, waiting for the beacon to be ranged again
+             */
+            TempusResult *result = [TempusRemoteService regInOut:regEntry withSuccess:^(AFHTTPRequestOperation *operation, id responseObj) {
+                DDLogError(@"Employee (%@, %@) with shortId %@ registered in.", employee.name, employee.identifier, shortId);
+                
+                [self.beingRangedBeaconsCounter setObject:@0 forKey:tempusBeacon];
+                
+                TempusRegMsg *msg = [[TempusRegMsg alloc] init];
+                msg.time = regDate;
+                msg.msg = [NSString stringWithFormat:@"%@ %@", employee.name, NSLocalizedString(@"REG_IN", @"Register in")];
+                [self newMsg:msg];
+                
+                [self newInOutRegRecord:regEntry];
+            } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                DDLogError(@"%@ registered in failed. check your network connection!", shortId);
+                DDLogError(@"%@", error.localizedDescription);
+                [self.beingRangedBeacons removeObject:tempusBeacon];
+            }];
+            
+            
+            if (result && ![result isOK]) {
+                DDLogError(@"Register employee (%@, %@) with shortId %@ failed.", employee.name, employee.identifier, shortId);
+                NSString *errMsg = [result getErrMsg];
+                if (errMsg)
+                    DDLogError(@"%@", errMsg);
+                if ([result getErr])
+                    DDLogError(@"%@", [result getErr].localizedDescription);
+            }
+        } else {
             [self.beingRangedBeaconsCounter setObject:@0 forKey:tempusBeacon];
-            TempusRegMsg *msg = [[TempusRegMsg alloc] init];
-            msg.time = regDate;
-            msg.msg = [NSString stringWithFormat:@"%@ %@", employee.name, NSLocalizedString(@"REG_IN", @"Register in")];
-            [self newMsg:msg];
-        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            DDLogError(@"%@ registered in failed. check your network connection!", shortId);
-            DDLogError(@"%@", error.localizedDescription);
-            [self.beingRangedBeacons removeObject:tempusBeacon];
-        }];
-        if (result && ![result isOK]) {
-            DDLogError(@"Register employee (%@, %@) with shortId %@ failed.", employee.name, employee.identifier, shortId);
-            NSString *errMsg = [result getErrMsg];
-            if (errMsg)
-                DDLogError(@"%@", errMsg);
-            if ([result getErr])
-                DDLogError(@"%@", [result getErr].localizedDescription);
         }
+        
     }
     
     
@@ -204,29 +236,38 @@ static NSString *tmpStaticStr = @"2015-12-01 12:30:41 This is an example message
             TempusEmployee *employee = [[LocalDataAccessor sharedInstance] localAccount];
             
             if (employee) {
-                RemoteRegEntry *regEntry = [[RemoteRegEntry alloc] init];
-                regEntry.regType = OUT;
-                regEntry.employeeId = employee.identifier;
+                TempusInOutRegRecord *regRecord = [[TempusInOutRegRecord alloc] init];
+                NSDate *regDate = [[NSDate alloc] init];
+                regRecord.date = regDate;
+                regRecord.type = kREG_TYPE_OUT;
+                regRecord.beaconShortId = employee.shortId;
+                regRecord.userId = employee.identifier;
                 
-                [self.cachedRegEntries addObject:regEntry];
-                
-                dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
-                    [TempusRemoteService regInOut:regEntry withSuccess:^(AFHTTPRequestOperation *operation, id responseObj) {
-                        DDLogInfo(@"Employee (%@, %@) registered out.", employee.name, employee.shortId);
-                        
-                        [self.cachedRegEntries removeObject:regEntry];
-                        
-                        NSDate *regDate = [[NSDate alloc] init];
-                        TempusRegMsg *msg = [[TempusRegMsg alloc] init];
-                        msg.time = regDate;
-                        msg.msg = [NSString stringWithFormat:@"%@ %@", employee.name, NSLocalizedString(@"REG_OUT", @"Register out")];
-                        [self newMsg:msg];
-                    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                        DDLogError(@"Employee (%@, %@) with shortId %@  could NOT registered out.", employee.name, employee.shortId, ((TempusBeacon *)key).shortId);
-                    }];
-                });
                 /*
+                 * if the beacon has triggered the last reg as the same type, 
+                 * then we won't trigger it again
                  */
+                if (![regRecord isEqual:self.lastInOutRegRecord]) {
+                    
+                    [self.cachedRegEntries addObject:regRecord];
+                    
+                    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
+                        [TempusRemoteService regInOut:regRecord withSuccess:^(AFHTTPRequestOperation *operation, id responseObj) {
+                            DDLogInfo(@"Employee (%@, %@) registered out.", employee.name, employee.shortId);
+                            
+                            [self.cachedRegEntries removeObject:regRecord];
+                            
+                            TempusRegMsg *msg = [[TempusRegMsg alloc] init];
+                            msg.time = regDate;
+                            msg.msg = [NSString stringWithFormat:@"%@ %@", employee.name, NSLocalizedString(@"REG_OUT", @"Register out")];
+                            [self newMsg:msg];
+                            
+                            [self newInOutRegRecord:regRecord];
+                        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                            DDLogError(@"Employee (%@, %@) with shortId %@  could NOT registered out.", employee.name, employee.shortId, ((TempusBeacon *)key).shortId);
+                        }];
+                    });
+                }
             }
             
             [toBeRemovedBeacons addObject:key];
@@ -269,15 +310,20 @@ static NSString *tmpStaticStr = @"2015-12-01 12:30:41 This is an example message
     label.numberOfLines = 0;
     label.lineBreakMode = NSLineBreakByWordWrapping;
     
-    NSLocale *currentLocale = [NSLocale currentLocale];
+    /*
     NSString *dateTemplate = @"yyyyMMdd";
     NSString *formatStr = [NSDateFormatter dateFormatFromTemplate:dateTemplate options:0 locale:currentLocale];
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     [formatter setDateFormat:formatStr];
+     */
+    NSLocale *currentLocale = [NSLocale currentLocale];
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateStyle:NSDateFormatterMediumStyle];
+    [formatter setTimeStyle:NSDateFormatterMediumStyle];
+    [formatter setLocale:currentLocale];
     
     TempusRegMsg *tempusRegMsg = [self.msgBuf objectAtIndex:indexPath.row];
     NSString *msgStr = [formatter stringFromDate:tempusRegMsg.time];
-    dateTemplate = @"HHmmss";
     [label setText:[msgStr stringByAppendingString:tempusRegMsg.msg]];
     
     return cell;
@@ -312,6 +358,9 @@ static NSString *tmpStaticStr = @"2015-12-01 12:30:41 This is an example message
     self.beingRangedBeaconsCounter = [[NSMutableDictionary alloc] init];
     self.cachedRegEntries = [[NSMutableArray alloc] init];
     
+    /*todo, init self.lastInOutRegRecord*/
+    
+    
     //instantiate peripheral device manager
     self.peripheralDeviceManager = [PeripheralDeviceManager sharedManager];
 
@@ -341,6 +390,16 @@ static NSString *tmpStaticStr = @"2015-12-01 12:30:41 This is an example message
         self.msgBuf = [[DBManager sharedInstance] regMsgsWithLimit:kREG_MSG_DISP_LMT];
         [self.msgTableView reloadData];
     }
+}
+
+
+- (BOOL) newInOutRegRecord: (TempusInOutRegRecord *)record {
+    if ([[DBManager sharedInstance] storeInOutRegRecord:record]) {
+        self.lastInOutRegRecord = record;
+        return YES;
+    }
+    
+    return NO;
 }
 
 @end

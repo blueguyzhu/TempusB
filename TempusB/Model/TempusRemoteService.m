@@ -10,7 +10,7 @@
 #define kTIMEOUT_INTERVAL                   60.0
 
 #import "TempusRemoteService.h"
-#import "RemoteRegEntry.h"
+#import "TempusInOutRegRecord.h"
 #import "AFNetworking.h"
 #import "TempusResult.h"
 #import "CocoaLumberjack/CocoaLumberjack.h"
@@ -34,12 +34,12 @@ static NSOperationQueue *msTempusRemoteServiceQue = nil;
     return msTempusRemoteServiceQue;
 }
 
-+ (TempusResult *) regInOut:(RemoteRegEntry *)entryInfo
++ (TempusResult *) regInOut:(TempusInOutRegRecord *)entryInfo
                 withSuccess: (void (^)(AFHTTPRequestOperation *operation, id responseObj))suc
                     failure: (void (^)(AFHTTPRequestOperation *operation, NSError *error))failure{
     NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] initWithCapacity:3];
-    jsonDict[@"AnsattNr"] = entryInfo.employeeId;
-    jsonDict[@"InOrOut"] = entryInfo.regType == IN ? @"in" : @"out";
+    jsonDict[@"AnsattNr"] = entryInfo.userId;
+    jsonDict[@"InOrOut"] = entryInfo.type == kREG_TYPE_IN ? @"in" : @"out";
     jsonDict[@"Site"] = @"";
     
     NSError *err = nil;

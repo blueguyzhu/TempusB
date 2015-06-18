@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "TempusRemoteServiceResponseDelegate.h"
 
-@class RemoteRegEntry;
+@class TempusInOutRegRecord;
 @class TempusResult;
 @class AFHTTPRequestOperation;
 
@@ -18,7 +18,7 @@
 
 //+ (TempusResult *) regInOut: (RemoteRegEntry *)entryInfo withResponseObjReceiver: (id<TempusRemoteServiceResponseDelegate>) receiver;
 
-+ (TempusResult *) regInOut:(RemoteRegEntry *)entryInfo
++ (TempusResult *) regInOut:(TempusInOutRegRecord *)entryInfo
                 withSuccess: (void (^)(AFHTTPRequestOperation *operation, id responseObj))suc
                     failure: (void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
 

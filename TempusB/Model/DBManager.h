@@ -12,15 +12,21 @@
 #import <Foundation/Foundation.h>
 
 @class TempusRegMsg;
+@class TempusRegRecord;
 
 @interface DBManager : NSObject
 
 + (instancetype) sharedInstance;
 
 - (NSMutableArray *) beaconDeviceList;
+
 - (BOOL) storeRegMsg: (TempusRegMsg *)msg;
+
 - (NSArray *) regMsgsWithLimit: (NSInteger) limit;
 
+- (BOOL) storeInOutRegRecord:(TempusRegRecord *)record;
+
+- (NSArray *) lastRegRecordsWithLimit: (NSInteger)limit;
 @end
 
 #endif

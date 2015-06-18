@@ -7,13 +7,16 @@
 //
 #define kDB_FILE_NAME               @"TempusB.db"
 #define kDEVICE_TABLE_NAME          @"devices"
-#define kREG_MSG_TABLE_NAME         @"message"
 
 #import <sqlite3.h>
 #import "DBManager.h"
 #import <CocoaLumberjack.h>
 #import "TempusBeacon.h"
 #import "TempusRegMsg.h"
+#import "TempusRegRecord.h"
+#import "TempusInOutRegRecord.h"
+#import "TempusDBMsgTable.h"
+#import "TempusDBRegTable.h"
 
 @interface DBManager ()
 
@@ -78,7 +81,8 @@ static int msDbOpenCount = 0;
 
 
 -  (BOOL) storeRegMsg:(TempusRegMsg *)msg {
-    NSString *query = [NSString stringWithFormat: @"INSERT INTO %@ (date, content) VALUES(?, ?)", kREG_MSG_TABLE_NAME];
+    NSString *query = [NSString stringWithFormat: @"INSERT INTO %@ (%@, %@) VALUES(?, ?)",
+                       kTEMPUS_MSG_TABLE_NAME, kTEMPUS_MSG_TABLE_COLUMN_DATE, kTEMPUS_MSG_TABLE_COLUMN_CONTENT];
     sqlite3_stmt *statement = nil;
     
     [self retainDb];
@@ -113,7 +117,8 @@ static int msDbOpenCount = 0;
 
 
 - (NSArray *) regMsgsWithLimit:(NSInteger)limit {
-    NSString *query = [NSString stringWithFormat:@"SELECT date, content FROM %@ ORDER BY _id DESC LIMIT %ld", kREG_MSG_TABLE_NAME, limit];
+    NSString *query = [NSString stringWithFormat:@"SELECT %@, %@ FROM %@ ORDER BY _id DESC LIMIT ?",
+                       kTEMPUS_MSG_TABLE_COLUMN_DATE, kTEMPUS_MSG_TABLE_COLUMN_CONTENT, kTEMPUS_MSG_TABLE_NAME];
     sqlite3_stmt *statement = nil;
     
     [self retainDb];
@@ -129,6 +134,8 @@ static int msDbOpenCount = 0;
         return nil;
     }
     
+    sqlite3_bind_int64(statement, 1, limit);
+    
     NSMutableArray *msgs = [[NSMutableArray alloc] init];
     while (SQLITE_ROW == sqlite3_step(statement)) {
         TempusRegMsg *regMsg = [[TempusRegMsg alloc] init];
@@ -142,6 +149,82 @@ static int msDbOpenCount = 0;
     [self releaseDb];
     
     return msgs;
+}
+
+
+- (BOOL) storeInOutRegRecord:(TempusRegRecord *)record {
+    NSString *query = [NSString stringWithFormat:@"INSERT INTO %@ (%@, %@, %@, %@) VALUES (?, ?, ?, ?)", kTEMPUS_REG_TABLE_NAME,
+                       kTEMPUS_REG_TABLE_COLUMN_DATE, kTEMPUS_REG_TABLE_COLUMN_TYPE, kTEMPUS_REG_TABLE_COLUMN_BEACON,
+                       kTEMPUS_REG_TABLE_COLUMN_USER];
+    sqlite3_stmt *stmt = nil;
+    
+    [self retainDb];
+    int result = sqlite3_prepare(msDb, [query UTF8String], -1, &stmt, nil);
+    if (SQLITE_OK != result) {
+        DDLogError(@"Sqlite error code: %d", result);
+        DDLogError(@"%s", sqlite3_errmsg(msDb));
+        if (stmt)
+            sqlite3_finalize(stmt);
+        [self releaseDb];
+        
+        return false;
+    }
+    
+    TempusInOutRegRecord *recd = (TempusInOutRegRecord *) record;
+    
+    sqlite3_bind_int64(stmt, 1, floor([recd.date timeIntervalSince1970] * 1000.f));
+    sqlite3_bind_int64(stmt, 2, recd.type);
+    sqlite3_bind_text(stmt, 3, [recd.beaconShortId UTF8String], (int)recd.beaconShortId.length, nil);
+    sqlite3_bind_text(stmt, 4, [recd.userId UTF8String], (int)recd.userId.length, nil);
+    
+    result = sqlite3_step(stmt);
+    if (SQLITE_DONE != result) {
+        DDLogError(@"Sqlite error code: %d", result);
+        DDLogError(@"%s", sqlite3_errmsg(msDb));
+    }
+    
+    sqlite3_finalize(stmt);
+    [self releaseDb];
+    
+    return SQLITE_DONE == result;
+}
+
+
+- (NSArray *) lastRegRecordsWithLimit:(NSInteger)limit {
+    NSString *query = [NSString stringWithFormat:@"SELECT %@, %@, %@, %@ FROM %@ ORDER BY _id DESC LIMIT ?",
+                       kTEMPUS_REG_TABLE_COLUMN_DATE, kTEMPUS_REG_TABLE_COLUMN_TYPE, kTEMPUS_REG_TABLE_COLUMN_BEACON,
+                       kTEMPUS_REG_TABLE_COLUMN_USER, kTEMPUS_REG_TABLE_NAME];
+    sqlite3_stmt *stmt = nil;
+    
+    [self retainDb];
+    int result = sqlite3_prepare(msDb, [query UTF8String], -1, &stmt, nil);
+    if (SQLITE_OK != result) {
+        DDLogError(@"Sqlite error code: %d", result);
+        DDLogError(@"%s", sqlite3_errmsg(msDb));
+        if (stmt)
+            sqlite3_finalize(stmt);
+        [self releaseDb];
+        
+        return false;
+    }
+    
+    sqlite3_bind_int64(stmt, 1, limit);
+    
+    NSMutableArray *regRecords = [[NSMutableArray alloc] init];
+    while (SQLITE_ROW == sqlite3_step(stmt)) {
+        TempusInOutRegRecord *regRecord = [[TempusInOutRegRecord alloc] init];
+        regRecord.date = [[NSDate alloc] initWithTimeIntervalSince1970:sqlite3_column_int64(stmt, 0) / 1000. ];
+        regRecord.type = sqlite3_column_int64(stmt, 1);
+        regRecord.beaconShortId = [NSString stringWithUTF8String:(const char *)sqlite3_column_text(stmt, 2)];
+        regRecord.userId = [NSString stringWithUTF8String:(const char *)sqlite3_column_text(stmt, 3)];
+        
+        [regRecords addObject:regRecord];
+    }
+    
+    sqlite3_finalize(stmt);
+    [self releaseDb];
+    
+    return regRecords;
 }
 
 
