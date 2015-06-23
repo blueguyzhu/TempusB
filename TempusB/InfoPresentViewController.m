@@ -65,6 +65,7 @@ static NSString *tmpStaticStr = @"2015-12-01 12:30:41 This is an example message
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
+    
     self.msgBuf = [[DBManager sharedInstance] regMsgsWithLimit:kREG_MSG_DISP_LMT];
     [self.msgTableView reloadData];
     

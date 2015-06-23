@@ -13,6 +13,7 @@
 #import "DropdownListViewController.h"
 #import "AccountSelectVC.h"
 #import "QRScannerViewController.h"
+#import "FullSettingsViewController.h"
 #import "TempusEmployee.h"
 #import "LocalDataAccessor.h"
 
@@ -126,6 +127,12 @@
 }
 
 
+- (void) presentConfigurationView {
+    FullSettingsViewController *fullSettingsVC = [[FullSettingsViewController alloc] init];
+    [self.navigationController pushViewController:fullSettingsVC animated:YES];
+}
+
+
 - (void) setupSubviews {
 
     /*[[self.navigationController navigationBar] setBackgroundImage:[[UIImage imageNamed:@"background.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(0, 0, 0, 0)] forBarMetrics:UIBarMetricsDefault];
@@ -141,6 +148,7 @@
     [self.dropdownListVC registerRowSelectAction:@selector(hideListView) ofTarget:self];
     [self.dropdownListVC registerRowSelectAction:@selector(presentAccountSelectView) ofTarget:self atRow:0];
     [self.dropdownListVC registerRowSelectAction:@selector(presentScannerView) ofTarget:self atRow:1];
+    [self.dropdownListVC registerRowSelectAction:@selector(presentConfigurationView) ofTarget:self atRow:2];
     
     [self.view addSubview:self.dropdownListVC.view];
     /*

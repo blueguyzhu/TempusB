@@ -29,6 +29,16 @@
 		669614731B302448009F339D /* TempusRLDataParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 669614721B302448009F339D /* TempusRLDataParser.m */; };
 		669614761B30385C009F339D /* LightLocalStorageManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 669614751B30385C009F339D /* LightLocalStorageManager.m */; };
 		669614791B315268009F339D /* LocalDataAccessor.m in Sources */ = {isa = PBXBuildFile; fileRef = 669614781B315268009F339D /* LocalDataAccessor.m */; };
+		6696147C1B32B31A009F339D /* TempusRegRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = 6696147B1B32B31A009F339D /* TempusRegRecord.m */; };
+		6696147F1B32B5E8009F339D /* TempusInOutRegRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = 6696147E1B32B5E8009F339D /* TempusInOutRegRecord.m */; };
+		669614891B33F90B009F339D /* FullSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 669614881B33F90B009F339D /* FullSettingsViewController.m */; };
+		6696148B1B33FAA1009F339D /* GroupSelectionListView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6696148A1B33FAA1009F339D /* GroupSelectionListView.xib */; };
+		6696148D1B33FB4D009F339D /* GroupSelectionListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6696148C1B33FB4D009F339D /* GroupSelectionListCell.xib */; };
+		669614931B33FD16009F339D /* GroupSelectionListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 669614921B33FD16009F339D /* GroupSelectionListCell.m */; };
+		669614951B3443C7009F339D /* arrow_right.png in Resources */ = {isa = PBXBuildFile; fileRef = 669614941B3443C7009F339D /* arrow_right.png */; };
+		669614971B34524E009F339D /* geo_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 669614961B34524E009F339D /* geo_icon.png */; };
+		669614991B345326009F339D /* location_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 669614981B345326009F339D /* location_icon.png */; };
+		6696149B1B39769C009F339D /* beacon_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 6696149A1B39769C009F339D /* beacon_icon.png */; };
 		669F08651B0F067C00767771 /* white_logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 669F08641B0F067C00767771 /* white_logo.png */; };
 		669F08671B0F06B300767771 /* background.png in Resources */ = {isa = PBXBuildFile; fileRef = 669F08661B0F06B300767771 /* background.png */; };
 		669F08691B0F10FF00767771 /* ibeacon_logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 669F08681B0F10FF00767771 /* ibeacon_logo.png */; };
@@ -99,6 +109,22 @@
 		669614751B30385C009F339D /* LightLocalStorageManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LightLocalStorageManager.m; path = Model/LightLocalStorageManager.m; sourceTree = "<group>"; };
 		669614771B315268009F339D /* LocalDataAccessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LocalDataAccessor.h; path = Model/LocalDataAccessor.h; sourceTree = "<group>"; };
 		669614781B315268009F339D /* LocalDataAccessor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LocalDataAccessor.m; path = Model/LocalDataAccessor.m; sourceTree = "<group>"; };
+		6696147A1B32B31A009F339D /* TempusRegRecord.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TempusRegRecord.h; path = Model/TempusRegRecord.h; sourceTree = "<group>"; };
+		6696147B1B32B31A009F339D /* TempusRegRecord.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TempusRegRecord.m; path = Model/TempusRegRecord.m; sourceTree = "<group>"; };
+		6696147D1B32B5E8009F339D /* TempusInOutRegRecord.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TempusInOutRegRecord.h; path = Model/TempusInOutRegRecord.h; sourceTree = "<group>"; };
+		6696147E1B32B5E8009F339D /* TempusInOutRegRecord.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TempusInOutRegRecord.m; path = Model/TempusInOutRegRecord.m; sourceTree = "<group>"; };
+		669614801B32D2E6009F339D /* TempusDBMsgTable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TempusDBMsgTable.h; path = Model/TempusDBMsgTable.h; sourceTree = "<group>"; };
+		669614811B32D448009F339D /* TempusDBRegTable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TempusDBRegTable.h; sourceTree = "<group>"; };
+		669614871B33F90B009F339D /* FullSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FullSettingsViewController.h; sourceTree = "<group>"; };
+		669614881B33F90B009F339D /* FullSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FullSettingsViewController.m; sourceTree = "<group>"; };
+		6696148A1B33FAA1009F339D /* GroupSelectionListView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GroupSelectionListView.xib; sourceTree = "<group>"; };
+		6696148C1B33FB4D009F339D /* GroupSelectionListCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GroupSelectionListCell.xib; sourceTree = "<group>"; };
+		669614911B33FD16009F339D /* GroupSelectionListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupSelectionListCell.h; sourceTree = "<group>"; };
+		669614921B33FD16009F339D /* GroupSelectionListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupSelectionListCell.m; sourceTree = "<group>"; };
+		669614941B3443C7009F339D /* arrow_right.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = arrow_right.png; sourceTree = "<group>"; };
+		669614961B34524E009F339D /* geo_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = geo_icon.png; sourceTree = "<group>"; };
+		669614981B345326009F339D /* location_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = location_icon.png; sourceTree = "<group>"; };
+		6696149A1B39769C009F339D /* beacon_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = beacon_icon.png; sourceTree = "<group>"; };
 		669F08641B0F067C00767771 /* white_logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = white_logo.png; sourceTree = "<group>"; };
 		669F08661B0F06B300767771 /* background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = background.png; sourceTree = "<group>"; };
 		669F08681B0F10FF00767771 /* ibeacon_logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ibeacon_logo.png; sourceTree = "<group>"; };
@@ -174,6 +200,10 @@
 				33521C5C1B2B0FAF0099E214 /* OptionSelectResponse.m */,
 				669614771B315268009F339D /* LocalDataAccessor.h */,
 				669614781B315268009F339D /* LocalDataAccessor.m */,
+				6696147A1B32B31A009F339D /* TempusRegRecord.h */,
+				6696147B1B32B31A009F339D /* TempusRegRecord.m */,
+				6696147D1B32B5E8009F339D /* TempusInOutRegRecord.h */,
+				6696147E1B32B5E8009F339D /* TempusInOutRegRecord.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -185,6 +215,8 @@
 				669614751B30385C009F339D /* LightLocalStorageManager.m */,
 				66701C121B146141006C8C68 /* DBManager.m */,
 				66701C141B146161006C8C68 /* DBManager.h */,
+				669614801B32D2E6009F339D /* TempusDBMsgTable.h */,
+				669614811B32D448009F339D /* TempusDBRegTable.h */,
 			);
 			name = LocalStorageManager;
 			sourceTree = "<group>";
@@ -203,13 +235,49 @@
 				6689EF601B297B510025B4B3 /* DropdownListCell.xib */,
 				6689EF621B2996360025B4B3 /* DropdownListCell.h */,
 				6689EF631B2996360025B4B3 /* DropdownListCell.m */,
+				6696148A1B33FAA1009F339D /* GroupSelectionListView.xib */,
+				6696148C1B33FB4D009F339D /* GroupSelectionListCell.xib */,
+				669614911B33FD16009F339D /* GroupSelectionListCell.h */,
+				669614921B33FD16009F339D /* GroupSelectionListCell.m */,
 			);
 			name = Views;
+			sourceTree = "<group>";
+		};
+		669614821B33F798009F339D /* MainTabs */ = {
+			isa = PBXGroup;
+			children = (
+				669614871B33F90B009F339D /* FullSettingsViewController.h */,
+				669614881B33F90B009F339D /* FullSettingsViewController.m */,
+				66E1FC161B0B719D002C4EC0 /* InfoPresentViewController.h */,
+				66E1FC171B0B719D002C4EC0 /* InfoPresentViewController.m */,
+				66E1FC191B0B719D002C4EC0 /* SettingsViewController.h */,
+				66E1FC1A1B0B719D002C4EC0 /* SettingsViewController.m */,
+				668AA63C1B0F3D2B004C8594 /* GoWebViewController.m */,
+				668AA63E1B0F3D40004C8594 /* GoWebViewController.h */,
+			);
+			name = MainTabs;
+			sourceTree = "<group>";
+		};
+		669614831B33F7B5009F339D /* Configurations */ = {
+			isa = PBXGroup;
+			children = (
+				6689EF5B1B297A2A0025B4B3 /* DropdownListViewController.h */,
+				6689EF5C1B297A2A0025B4B3 /* DropdownListViewController.m */,
+				3317D3971B2B376900F41E91 /* AccountSelectVC.h */,
+				3317D3981B2B376900F41E91 /* AccountSelectVC.m */,
+				6696146E1B2EBEF4009F339D /* QRScannerViewController.h */,
+				6696146F1B2EBEF4009F339D /* QRScannerViewController.m */,
+			);
+			name = Configurations;
 			sourceTree = "<group>";
 		};
 		669F08631B0F062800767771 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				669614981B345326009F339D /* location_icon.png */,
+				669614961B34524E009F339D /* geo_icon.png */,
+				669614941B3443C7009F339D /* arrow_right.png */,
+				6696149A1B39769C009F339D /* beacon_icon.png */,
 				6689EF691B29A74A0025B4B3 /* setting_btn_icon.png */,
 				6689EF651B299CBD0025B4B3 /* scan_btn_icon.png */,
 				6689EF671B299D4C0025B4B3 /* choose_account_btn_icon.png */,
@@ -325,18 +393,8 @@
 		66E1FC381B0B7335002C4EC0 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				66E1FC161B0B719D002C4EC0 /* InfoPresentViewController.h */,
-				66E1FC171B0B719D002C4EC0 /* InfoPresentViewController.m */,
-				66E1FC191B0B719D002C4EC0 /* SettingsViewController.h */,
-				66E1FC1A1B0B719D002C4EC0 /* SettingsViewController.m */,
-				668AA63C1B0F3D2B004C8594 /* GoWebViewController.m */,
-				668AA63E1B0F3D40004C8594 /* GoWebViewController.h */,
-				6689EF5B1B297A2A0025B4B3 /* DropdownListViewController.h */,
-				6689EF5C1B297A2A0025B4B3 /* DropdownListViewController.m */,
-				3317D3971B2B376900F41E91 /* AccountSelectVC.h */,
-				3317D3981B2B376900F41E91 /* AccountSelectVC.m */,
-				6696146E1B2EBEF4009F339D /* QRScannerViewController.h */,
-				6696146F1B2EBEF4009F339D /* QRScannerViewController.m */,
+				669614831B33F7B5009F339D /* Configurations */,
+				669614821B33F798009F339D /* MainTabs */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -452,16 +510,22 @@
 				669F08671B0F06B300767771 /* background.png in Resources */,
 				6689EF661B299CBD0025B4B3 /* scan_btn_icon.png in Resources */,
 				6689EF611B297B510025B4B3 /* DropdownListCell.xib in Resources */,
+				669614991B345326009F339D /* location_icon.png in Resources */,
+				6696148B1B33FAA1009F339D /* GroupSelectionListView.xib in Resources */,
 				66E1FC231B0B719D002C4EC0 /* LaunchScreen.xib in Resources */,
 				6689EF4F1B28420C0025B4B3 /* Localizable.strings in Resources */,
 				6689EF6A1B29A74A0025B4B3 /* setting_btn_icon.png in Resources */,
 				66B918971B18B6C000A86760 /* TempusB.db in Resources */,
 				6689EF571B2973040025B4B3 /* plus_icon.png in Resources */,
+				6696148D1B33FB4D009F339D /* GroupSelectionListCell.xib in Resources */,
 				668AA63B1B0F2639004C8594 /* users_icon.png in Resources */,
 				6689EF681B299D4C0025B4B3 /* choose_account_btn_icon.png in Resources */,
+				669614951B3443C7009F339D /* arrow_right.png in Resources */,
 				66E1FC201B0B719D002C4EC0 /* Images.xcassets in Resources */,
+				669614971B34524E009F339D /* geo_icon.png in Resources */,
 				669F08651B0F067C00767771 /* white_logo.png in Resources */,
 				6689EF5F1B297A2A0025B4B3 /* DropdownListView.xib in Resources */,
+				6696149B1B39769C009F339D /* beacon_icon.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -514,6 +578,7 @@
 			files = (
 				66701C131B146141006C8C68 /* DBManager.m in Sources */,
 				66B918A01B1DB0C600A86760 /* RemoteRegEntry.m in Sources */,
+				6696147C1B32B31A009F339D /* TempusRegRecord.m in Sources */,
 				66E1FC1B1B0B719D002C4EC0 /* SettingsViewController.m in Sources */,
 				66E1FC151B0B719D002C4EC0 /* AppDelegate.m in Sources */,
 				33521C5D1B2B0FAF0099E214 /* OptionSelectResponse.m in Sources */,
@@ -530,9 +595,12 @@
 				669614761B30385C009F339D /* LightLocalStorageManager.m in Sources */,
 				66E1FC121B0B719D002C4EC0 /* main.m in Sources */,
 				66B918A81B1DD40E00A86760 /* TempusResult.m in Sources */,
+				6696147F1B32B5E8009F339D /* TempusInOutRegRecord.m in Sources */,
+				669614931B33FD16009F339D /* GroupSelectionListCell.m in Sources */,
 				6689EF481B271B490025B4B3 /* TempusBeacon.m in Sources */,
 				66B918931B17420B00A86760 /* NSString+HeightCalc.m in Sources */,
 				3317D3991B2B376900F41E91 /* AccountSelectVC.m in Sources */,
+				669614891B33F90B009F339D /* FullSettingsViewController.m in Sources */,
 				66B918A41B1DB7CE00A86760 /* TempusRemoteService.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
