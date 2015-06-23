@@ -10,6 +10,10 @@
 #import "FullSettingsViewController.h"
 #import "GroupSelectionListCell.h"
 #import "CocoaLumberjack/CocoaLumberjack.h"
+#import "AccountSelectVC.h"
+#import "LocalDataAccessor.h"
+#import "TempusEmployee.h"
+#import "BeaconListViewController.h"
 
 @interface FullSettingsViewController ()
 
@@ -90,12 +94,17 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     GroupSelectionListCell *cell = [tableView dequeueReusableCellWithIdentifier:kSETTING_CELL_NAME];
     
-//    [cell setBackgroundColor:[UIColor clearColor]];
+    TempusEmployee *localAccount = nil;
+    
     switch (indexPath.section) {
         case 0:
             switch (indexPath.row) {
                 case 0:
-                    [cell.title setText:@"Account"];
+                    localAccount = [[LocalDataAccessor sharedInstance] localAccount];
+                    if (localAccount)
+                        [cell.title setText:localAccount.name];
+                    else
+                        [cell.title setText:NSLocalizedString(@"CHOOSE_ACCOUNT", @"Select an account")];
                     [cell.headIcon setImage:[UIImage imageNamed:@"users_icon.png"]];
                     cell.funSwitch.hidden = YES;
                     cell.trailIcon.hidden = NO;
@@ -110,21 +119,21 @@
         case 1:
             switch (indexPath.row) {
                 case 0:
-                    [cell.title setText:@"Manage Beacons"];
+                    [cell.title setText:NSLocalizedString(@"CFG_BEACONS", @"Add, delete beaconds")];
                     [cell.headIcon setImage:[UIImage imageNamed:@"beacon_icon.png"]];
                     cell.funSwitch.hidden = YES;
                     cell.trailIcon.hidden = NO;
                     break;
                     
                 case 1:
-                    [cell.title setText:@"Use Geo-location"];
+                    [cell.title setText:NSLocalizedString(@"USE_GEO_LOCATION", @"User geolocation to improve registration accuracy")];
                     [cell.headIcon setImage:[UIImage imageNamed:@"geo_icon.png"]];
                     cell.funSwitch.hidden = NO;
                     cell.trailIcon.hidden = YES;
                     break;
                     
                 case 2:
-                    [cell.title setText:@"Manage Locations"];
+                    [cell.title setText:NSLocalizedString(@"CFG_LOCATIONS", @"Add and delete geo-locations being monitored")];
                     [cell.headIcon setImage:[UIImage imageNamed:@"location_icon.png"]];
                     cell.funSwitch.hidden = YES;
                     cell.trailIcon.hidden = NO;
@@ -140,6 +149,7 @@
             switch (indexPath.row) {
                 case 0:
                     [cell.title setText:@"Time and Timezone"];
+                    [cell.headIcon setImage:[UIImage imageNamed:@"global_icon.png"]];
                     cell.funSwitch.hidden = YES;
                     cell.trailIcon.hidden = NO;
                     break;
@@ -241,6 +251,43 @@
 
 #pragma mark - UITableView Delegate Methods
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    switch (indexPath.section) {
+        case 0:
+            switch (indexPath.row) {
+                case 0:
+                    [self presentAccountSelectView];
+                    break;
+                    
+                default:
+                    break;
+            };
+            break;
+            
+        case 1:
+            switch (indexPath.row) {
+                case 0:
+                    [self presentBeaconConfView];
+                    break;
+                    
+                default:
+                    break;
+            };
+            break;
+            
+        case 2:
+            switch (indexPath.row) {
+                case 0:
+                    ;
+                    break;
+                    
+                default:
+                    break;
+            };
+            break;
+            
+        default:
+            break;
+    }
 }
 
 /*
@@ -252,5 +299,20 @@
     // Pass the selected object to the new view controller.
 }
 */
+
+
+#pragma mark - private methods
+- (void) presentAccountSelectView {
+    AccountSelectVC *accSelectVC = [[AccountSelectVC alloc] initWithFrame:self.view.bounds];
+    [self.navigationController pushViewController:accSelectVC animated:YES];
+}
+
+
+- (void) presentBeaconConfView {
+    BeaconListViewController *beaconListVC = [[BeaconListViewController alloc] init];
+    [self.navigationController pushViewController:beaconListVC animated:YES];
+}
+
+
 
 @end

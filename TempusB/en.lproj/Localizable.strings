@@ -15,3 +15,7 @@
 "SETTINGS" = "Settings";
 "CANCEL" = "Cancel";
 "CHOOSE_ACC_FIRST" = "Choose an account first";
+"NETWORK_FAILURE" = "Network failure";
+"CFG_BEACONS" = "Configure Beacons";
+"USE_GEO_LOCATION" = "Use Geo-location";
+"CFG_LOCATIONS" = "Configure Locations";

@@ -8,6 +8,7 @@
 
 #import "TempusRLDataParser.h"
 #import "TempusEmployee.h"
+#import "TempusLocation.h"
 
 @implementation TempusRLDataParser
 + (NSArray *) R2LParseEmployeeList:(id)rArr {
@@ -21,6 +22,15 @@
         
         [localList addObject:tempusEmployee];
     }
+    
+    return localList;
+}
+
+
++ (NSArray *) R2LParseLocationList:(id)rArr {
+    NSArray *remoteList = (NSArray *) rArr;
+    NSMutableArray *localList = [[NSMutableArray alloc] initWithCapacity:remoteList.count];
+    
     
     return localList;
 }

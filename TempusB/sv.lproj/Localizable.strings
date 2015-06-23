@@ -15,3 +15,7 @@
 "SETTINGS" = "Inställningar";
 "CANCEL" = "Avbryt";
 "CHOOSE_ACC_FIRST" = "Välj ett konto först";
+"NETWORK_FAILURE" = "Nätverk misslyckande";
+"CFG_BEACONS" = "Konfigurer Beacon";
+"USE_GEO_LOCATION" = "Använda Läge";
+"CFG_LOCATIONS" = "Konfigurera Platser";

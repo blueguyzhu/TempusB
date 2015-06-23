@@ -14,7 +14,7 @@
 #import "CocoaLumberjack/CocoaLumberjack.h"
 
 @interface AccountSelectVC ()
-@property (nonatomic, weak) UITableView *weakView;
+//@property (nonatomic, weak) UITableView *weakView;
 @property (nonatomic, strong) NSArray *accounts;
 @property (nonatomic, assign) CGRect preferedFrame;
 //@property (nonatomic, strong) TempusEmployee *curEmployee;
@@ -35,18 +35,21 @@
     [super viewDidLoad];
     
     self.view = [[UITableView alloc] initWithFrame:self.preferedFrame style:UITableViewStylePlain];
-    self.weakView = (UITableView *) self.view;
-    self.weakView.delegate = self;
-    self.weakView.dataSource = self;
     
     self.clearsSelectionOnViewWillAppear = YES;
     
     [TempusRemoteService  employeeListWithSuccess:^(AFHTTPRequestOperation *op, id repObj) {
         self.accounts = [TempusRLDataParser R2LParseEmployeeList:repObj];
         //self.curEmployee = employeeDict ? [[TempusEmployee alloc] initFromCocoaObj: employeeDict] : nil;
-        [self.weakView reloadData];
+        [self.tableView reloadData];
     } failure:^(AFHTTPRequestOperation *op, NSError *err) {
-        ;
+        DDLogError(@"%@", err.localizedDescription);
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"NETWORK_FAILURE", @"network error")
+                                                            message:nil
+                                                           delegate:nil
+                                                  cancelButtonTitle:NSLocalizedString(@"OK", @"OK")
+                                                  otherButtonTitles:nil, nil];
+        [alertView show];
     }];
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.

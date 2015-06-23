@@ -10,4 +10,5 @@
 
 @interface TempusRLDataParser : NSObject
 + (NSArray *) R2LParseEmployeeList: (id) rArr;
++ (NSArray *) R2LParseLocationList: (id) rArr;
 @end

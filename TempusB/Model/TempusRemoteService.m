@@ -84,4 +84,22 @@ static NSOperationQueue *msTempusRemoteServiceQue = nil;
     return nil;
 }
 
+
++ (TempusResult *)preconfLocationsWithSuccess:(void (^)(AFHTTPRequestOperation *, id))suc
+                                      failure:(void (^)(AFHTTPRequestOperation *, NSError *))failure{
+    NSURL *url = [NSURL URLWithString:[kREMOTE_BASE_URL stringByAppendingPathComponent:@"site"]];
+    NSMutableURLRequest *req = [[NSMutableURLRequest alloc] initWithURL:url];
+    
+    [req setTimeoutInterval:kTIMEOUT_INTERVAL];
+    [req setHTTPMethod:@"GET"];
+    
+    AFHTTPRequestOperation *op = [[AFHTTPRequestOperation alloc] initWithRequest:req];
+    op.responseSerializer = [AFJSONResponseSerializer serializer];
+    [op setCompletionBlockWithSuccess:suc failure:failure];
+    
+    [[TempusRemoteService tempusRemoteServiceQue] addOperation:op];
+    
+    return nil;
+}
+
 @end

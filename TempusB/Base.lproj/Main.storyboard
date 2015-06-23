@@ -281,6 +281,33 @@
             </objects>
             <point key="canvasLocation" x="-154" y="1788"/>
         </scene>
+        <!--FullSettingsViewController-->
+        <scene sceneID="GE1-zG-gMz">
+            <objects>
+                <tableViewController id="hJ1-RL-xre" userLabel="FullSettingsViewController" customClass="FullSettingsViewController" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="vKm-aD-5oR">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="1la-3G-CJ5">
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="1la-3G-CJ5" id="6Ip-lg-bew">
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="hJ1-RL-xre" id="9GG-LI-8L4"/>
+                            <outlet property="delegate" destination="hJ1-RL-xre" id="EVT-se-v7S"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="rXe-hm-1Ew"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="eUQ-X1-XBD" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="498" y="1778"/>
+        </scene>
         <!--Me-->
         <scene sceneID="fTs-DZ-md5">
             <objects>
@@ -291,7 +318,7 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
-                        <segue destination="8rJ-Kc-sve" kind="relationship" relationship="rootViewController" id="5J0-QW-7yR"/>
+                        <segue destination="hJ1-RL-xre" kind="relationship" relationship="rootViewController" id="5Lz-Ns-cn6"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="u3Z-w2-fB7" userLabel="First Responder" sceneMemberID="firstResponder"/>

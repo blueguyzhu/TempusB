@@ -25,4 +25,7 @@
 + (TempusResult *) employeeListWithSuccess: (void (^)(AFHTTPRequestOperation *op, id repObj))suc
                                    failure: (void (^)(AFHTTPRequestOperation *op, NSError *err)) failure;
 
++ (TempusResult *) preconfLocationsWithSuccess: (void (^)(AFHTTPRequestOperation *op, id repObj))suc
+                                       failure: (void (^)(AFHTTPRequestOperation *op, NSError *err)) failure;
+
 @end

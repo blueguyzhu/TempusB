@@ -39,6 +39,10 @@
 		669614971B34524E009F339D /* geo_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 669614961B34524E009F339D /* geo_icon.png */; };
 		669614991B345326009F339D /* location_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 669614981B345326009F339D /* location_icon.png */; };
 		6696149B1B39769C009F339D /* beacon_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 6696149A1B39769C009F339D /* beacon_icon.png */; };
+		6696149D1B397B02009F339D /* global_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 6696149C1B397B02009F339D /* global_icon.png */; };
+		669614A01B398C40009F339D /* BeaconListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6696149F1B398C40009F339D /* BeaconListViewController.m */; };
+		669614A31B399020009F339D /* LocationListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 669614A21B399020009F339D /* LocationListViewController.m */; };
+		669614A61B399503009F339D /* TempusLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = 669614A51B399503009F339D /* TempusLocation.m */; };
 		669F08651B0F067C00767771 /* white_logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 669F08641B0F067C00767771 /* white_logo.png */; };
 		669F08671B0F06B300767771 /* background.png in Resources */ = {isa = PBXBuildFile; fileRef = 669F08661B0F06B300767771 /* background.png */; };
 		669F08691B0F10FF00767771 /* ibeacon_logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 669F08681B0F10FF00767771 /* ibeacon_logo.png */; };
@@ -125,6 +129,13 @@
 		669614961B34524E009F339D /* geo_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = geo_icon.png; sourceTree = "<group>"; };
 		669614981B345326009F339D /* location_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = location_icon.png; sourceTree = "<group>"; };
 		6696149A1B39769C009F339D /* beacon_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = beacon_icon.png; sourceTree = "<group>"; };
+		6696149C1B397B02009F339D /* global_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = global_icon.png; sourceTree = "<group>"; };
+		6696149E1B398C40009F339D /* BeaconListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BeaconListViewController.h; sourceTree = "<group>"; };
+		6696149F1B398C40009F339D /* BeaconListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BeaconListViewController.m; sourceTree = "<group>"; };
+		669614A11B399020009F339D /* LocationListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationListViewController.h; sourceTree = "<group>"; };
+		669614A21B399020009F339D /* LocationListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationListViewController.m; sourceTree = "<group>"; };
+		669614A41B399503009F339D /* TempusLocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TempusLocation.h; path = Model/TempusLocation.h; sourceTree = "<group>"; };
+		669614A51B399503009F339D /* TempusLocation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TempusLocation.m; path = Model/TempusLocation.m; sourceTree = "<group>"; };
 		669F08641B0F067C00767771 /* white_logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = white_logo.png; sourceTree = "<group>"; };
 		669F08661B0F06B300767771 /* background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = background.png; sourceTree = "<group>"; };
 		669F08681B0F10FF00767771 /* ibeacon_logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ibeacon_logo.png; sourceTree = "<group>"; };
@@ -204,6 +215,8 @@
 				6696147B1B32B31A009F339D /* TempusRegRecord.m */,
 				6696147D1B32B5E8009F339D /* TempusInOutRegRecord.h */,
 				6696147E1B32B5E8009F339D /* TempusInOutRegRecord.m */,
+				669614A41B399503009F339D /* TempusLocation.h */,
+				669614A51B399503009F339D /* TempusLocation.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -267,6 +280,10 @@
 				3317D3981B2B376900F41E91 /* AccountSelectVC.m */,
 				6696146E1B2EBEF4009F339D /* QRScannerViewController.h */,
 				6696146F1B2EBEF4009F339D /* QRScannerViewController.m */,
+				6696149E1B398C40009F339D /* BeaconListViewController.h */,
+				6696149F1B398C40009F339D /* BeaconListViewController.m */,
+				669614A11B399020009F339D /* LocationListViewController.h */,
+				669614A21B399020009F339D /* LocationListViewController.m */,
 			);
 			name = Configurations;
 			sourceTree = "<group>";
@@ -274,6 +291,7 @@
 		669F08631B0F062800767771 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				6696149C1B397B02009F339D /* global_icon.png */,
 				669614981B345326009F339D /* location_icon.png */,
 				669614961B34524E009F339D /* geo_icon.png */,
 				669614941B3443C7009F339D /* arrow_right.png */,
@@ -506,6 +524,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				66E1FC1E1B0B719D002C4EC0 /* Main.storyboard in Resources */,
+				6696149D1B397B02009F339D /* global_icon.png in Resources */,
 				669F08691B0F10FF00767771 /* ibeacon_logo.png in Resources */,
 				669F08671B0F06B300767771 /* background.png in Resources */,
 				6689EF661B299CBD0025B4B3 /* scan_btn_icon.png in Resources */,
@@ -578,12 +597,14 @@
 			files = (
 				66701C131B146141006C8C68 /* DBManager.m in Sources */,
 				66B918A01B1DB0C600A86760 /* RemoteRegEntry.m in Sources */,
+				669614A61B399503009F339D /* TempusLocation.m in Sources */,
 				6696147C1B32B31A009F339D /* TempusRegRecord.m in Sources */,
 				66E1FC1B1B0B719D002C4EC0 /* SettingsViewController.m in Sources */,
 				66E1FC151B0B719D002C4EC0 /* AppDelegate.m in Sources */,
 				33521C5D1B2B0FAF0099E214 /* OptionSelectResponse.m in Sources */,
 				66701C0E1B145B8E006C8C68 /* TempusRegMsg.m in Sources */,
 				669614791B315268009F339D /* LocalDataAccessor.m in Sources */,
+				669614A01B398C40009F339D /* BeaconListViewController.m in Sources */,
 				66E1FC181B0B719D002C4EC0 /* InfoPresentViewController.m in Sources */,
 				6689EF641B2996360025B4B3 /* DropdownListCell.m in Sources */,
 				66B9189A1B1D9A7200A86760 /* PeripheralDeviceManager.m in Sources */,
@@ -594,6 +615,7 @@
 				66B9189D1B1DA3E900A86760 /* TempusEmployee.m in Sources */,
 				669614761B30385C009F339D /* LightLocalStorageManager.m in Sources */,
 				66E1FC121B0B719D002C4EC0 /* main.m in Sources */,
+				669614A31B399020009F339D /* LocationListViewController.m in Sources */,
 				66B918A81B1DD40E00A86760 /* TempusResult.m in Sources */,
 				6696147F1B32B5E8009F339D /* TempusInOutRegRecord.m in Sources */,
 				669614931B33FD16009F339D /* GroupSelectionListCell.m in Sources */,
