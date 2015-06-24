@@ -14,6 +14,7 @@
 #import "LocalDataAccessor.h"
 #import "TempusEmployee.h"
 #import "BeaconListViewController.h"
+#import "LocationListViewController.h"
 
 @interface FullSettingsViewController ()
 
@@ -30,8 +31,10 @@
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
     
+    /*
     UINib *cellNib = [UINib nibWithNibName:@"GroupSelectionListCell" bundle:nil];
     [self.tableView  registerNib:cellNib forCellReuseIdentifier:kSETTING_CELL_NAME];
+     */
     
     [self.tableView setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"background.png"]]];
     
@@ -93,6 +96,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     GroupSelectionListCell *cell = [tableView dequeueReusableCellWithIdentifier:kSETTING_CELL_NAME];
+    [cell setBackgroundColor:[UIColor clearColor]];
     
     TempusEmployee *localAccount = nil;
     
@@ -269,6 +273,10 @@
                     [self presentBeaconConfView];
                     break;
                     
+                case 2:
+                    [self presentLocationSelectView];
+                    break;
+                    
                 default:
                     break;
             };
@@ -311,6 +319,12 @@
 - (void) presentBeaconConfView {
     BeaconListViewController *beaconListVC = [[BeaconListViewController alloc] init];
     [self.navigationController pushViewController:beaconListVC animated:YES];
+}
+
+
+- (void) presentLocationSelectView {
+    LocationListViewController *locationSelectVC = [[LocationListViewController alloc] init];
+    [self.navigationController pushViewController:locationSelectVC animated:YES];
 }
 
 

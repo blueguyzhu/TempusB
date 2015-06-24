@@ -32,8 +32,6 @@
 		6696147C1B32B31A009F339D /* TempusRegRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = 6696147B1B32B31A009F339D /* TempusRegRecord.m */; };
 		6696147F1B32B5E8009F339D /* TempusInOutRegRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = 6696147E1B32B5E8009F339D /* TempusInOutRegRecord.m */; };
 		669614891B33F90B009F339D /* FullSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 669614881B33F90B009F339D /* FullSettingsViewController.m */; };
-		6696148B1B33FAA1009F339D /* GroupSelectionListView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6696148A1B33FAA1009F339D /* GroupSelectionListView.xib */; };
-		6696148D1B33FB4D009F339D /* GroupSelectionListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6696148C1B33FB4D009F339D /* GroupSelectionListCell.xib */; };
 		669614931B33FD16009F339D /* GroupSelectionListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 669614921B33FD16009F339D /* GroupSelectionListCell.m */; };
 		669614951B3443C7009F339D /* arrow_right.png in Resources */ = {isa = PBXBuildFile; fileRef = 669614941B3443C7009F339D /* arrow_right.png */; };
 		669614971B34524E009F339D /* geo_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 669614961B34524E009F339D /* geo_icon.png */; };
@@ -43,6 +41,7 @@
 		669614A01B398C40009F339D /* BeaconListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6696149F1B398C40009F339D /* BeaconListViewController.m */; };
 		669614A31B399020009F339D /* LocationListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 669614A21B399020009F339D /* LocationListViewController.m */; };
 		669614A61B399503009F339D /* TempusLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = 669614A51B399503009F339D /* TempusLocation.m */; };
+		669614A91B3A8E42009F339D /* UIViewController+VSpinner.m in Sources */ = {isa = PBXBuildFile; fileRef = 669614A81B3A8E42009F339D /* UIViewController+VSpinner.m */; };
 		669F08651B0F067C00767771 /* white_logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 669F08641B0F067C00767771 /* white_logo.png */; };
 		669F08671B0F06B300767771 /* background.png in Resources */ = {isa = PBXBuildFile; fileRef = 669F08661B0F06B300767771 /* background.png */; };
 		669F08691B0F10FF00767771 /* ibeacon_logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 669F08681B0F10FF00767771 /* ibeacon_logo.png */; };
@@ -121,8 +120,6 @@
 		669614811B32D448009F339D /* TempusDBRegTable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TempusDBRegTable.h; sourceTree = "<group>"; };
 		669614871B33F90B009F339D /* FullSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FullSettingsViewController.h; sourceTree = "<group>"; };
 		669614881B33F90B009F339D /* FullSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FullSettingsViewController.m; sourceTree = "<group>"; };
-		6696148A1B33FAA1009F339D /* GroupSelectionListView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GroupSelectionListView.xib; sourceTree = "<group>"; };
-		6696148C1B33FB4D009F339D /* GroupSelectionListCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GroupSelectionListCell.xib; sourceTree = "<group>"; };
 		669614911B33FD16009F339D /* GroupSelectionListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupSelectionListCell.h; sourceTree = "<group>"; };
 		669614921B33FD16009F339D /* GroupSelectionListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupSelectionListCell.m; sourceTree = "<group>"; };
 		669614941B3443C7009F339D /* arrow_right.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = arrow_right.png; sourceTree = "<group>"; };
@@ -136,6 +133,8 @@
 		669614A21B399020009F339D /* LocationListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationListViewController.m; sourceTree = "<group>"; };
 		669614A41B399503009F339D /* TempusLocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TempusLocation.h; path = Model/TempusLocation.h; sourceTree = "<group>"; };
 		669614A51B399503009F339D /* TempusLocation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TempusLocation.m; path = Model/TempusLocation.m; sourceTree = "<group>"; };
+		669614A71B3A8E42009F339D /* UIViewController+VSpinner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIViewController+VSpinner.h"; path = "Category/UIViewController+VSpinner.h"; sourceTree = "<group>"; };
+		669614A81B3A8E42009F339D /* UIViewController+VSpinner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIViewController+VSpinner.m"; path = "Category/UIViewController+VSpinner.m"; sourceTree = "<group>"; };
 		669F08641B0F067C00767771 /* white_logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = white_logo.png; sourceTree = "<group>"; };
 		669F08661B0F06B300767771 /* background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = background.png; sourceTree = "<group>"; };
 		669F08681B0F10FF00767771 /* ibeacon_logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ibeacon_logo.png; sourceTree = "<group>"; };
@@ -209,8 +208,6 @@
 				6689EF471B271B490025B4B3 /* TempusBeacon.m */,
 				33521C5B1B2B0FAF0099E214 /* OptionSelectResponse.h */,
 				33521C5C1B2B0FAF0099E214 /* OptionSelectResponse.m */,
-				669614771B315268009F339D /* LocalDataAccessor.h */,
-				669614781B315268009F339D /* LocalDataAccessor.m */,
 				6696147A1B32B31A009F339D /* TempusRegRecord.h */,
 				6696147B1B32B31A009F339D /* TempusRegRecord.m */,
 				6696147D1B32B5E8009F339D /* TempusInOutRegRecord.h */,
@@ -224,6 +221,8 @@
 		66701C111B14610C006C8C68 /* LocalStorageManager */ = {
 			isa = PBXGroup;
 			children = (
+				669614771B315268009F339D /* LocalDataAccessor.h */,
+				669614781B315268009F339D /* LocalDataAccessor.m */,
 				669614741B30385C009F339D /* LightLocalStorageManager.h */,
 				669614751B30385C009F339D /* LightLocalStorageManager.m */,
 				66701C121B146141006C8C68 /* DBManager.m */,
@@ -248,8 +247,6 @@
 				6689EF601B297B510025B4B3 /* DropdownListCell.xib */,
 				6689EF621B2996360025B4B3 /* DropdownListCell.h */,
 				6689EF631B2996360025B4B3 /* DropdownListCell.m */,
-				6696148A1B33FAA1009F339D /* GroupSelectionListView.xib */,
-				6696148C1B33FB4D009F339D /* GroupSelectionListCell.xib */,
 				669614911B33FD16009F339D /* GroupSelectionListCell.h */,
 				669614921B33FD16009F339D /* GroupSelectionListCell.m */,
 			);
@@ -313,6 +310,8 @@
 			children = (
 				66B918911B17420B00A86760 /* NSString+HeightCalc.h */,
 				66B918921B17420B00A86760 /* NSString+HeightCalc.m */,
+				669614A71B3A8E42009F339D /* UIViewController+VSpinner.h */,
+				669614A81B3A8E42009F339D /* UIViewController+VSpinner.m */,
 			);
 			name = Category;
 			sourceTree = "<group>";
@@ -530,13 +529,11 @@
 				6689EF661B299CBD0025B4B3 /* scan_btn_icon.png in Resources */,
 				6689EF611B297B510025B4B3 /* DropdownListCell.xib in Resources */,
 				669614991B345326009F339D /* location_icon.png in Resources */,
-				6696148B1B33FAA1009F339D /* GroupSelectionListView.xib in Resources */,
 				66E1FC231B0B719D002C4EC0 /* LaunchScreen.xib in Resources */,
 				6689EF4F1B28420C0025B4B3 /* Localizable.strings in Resources */,
 				6689EF6A1B29A74A0025B4B3 /* setting_btn_icon.png in Resources */,
 				66B918971B18B6C000A86760 /* TempusB.db in Resources */,
 				6689EF571B2973040025B4B3 /* plus_icon.png in Resources */,
-				6696148D1B33FB4D009F339D /* GroupSelectionListCell.xib in Resources */,
 				668AA63B1B0F2639004C8594 /* users_icon.png in Resources */,
 				6689EF681B299D4C0025B4B3 /* choose_account_btn_icon.png in Resources */,
 				669614951B3443C7009F339D /* arrow_right.png in Resources */,
@@ -614,6 +611,7 @@
 				6689EF5E1B297A2A0025B4B3 /* DropdownListViewController.m in Sources */,
 				66B9189D1B1DA3E900A86760 /* TempusEmployee.m in Sources */,
 				669614761B30385C009F339D /* LightLocalStorageManager.m in Sources */,
+				669614A91B3A8E42009F339D /* UIViewController+VSpinner.m in Sources */,
 				66E1FC121B0B719D002C4EC0 /* main.m in Sources */,
 				669614A31B399020009F339D /* LocationListViewController.m in Sources */,
 				66B918A81B1DD40E00A86760 /* TempusResult.m in Sources */,

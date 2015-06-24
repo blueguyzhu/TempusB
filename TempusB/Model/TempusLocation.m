@@ -10,4 +10,24 @@
 
 @implementation TempusLocation
 
+- (instancetype) init {
+    self = [super init];
+    
+    if (self) {
+        self.coordinate = CLLocationCoordinate2DMake(NAN, NAN);
+    }
+    
+    return self;
+}
+
+
+- (BOOL) isEqual:(id)object {
+    if (![object isKindOfClass:[self class]])
+        return NO;
+    
+    TempusLocation *other = (TempusLocation *) object;
+    
+    return self.identifier == other.identifier;
+}
+
 @end

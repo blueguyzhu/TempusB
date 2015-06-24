@@ -56,6 +56,16 @@ static TempusEmployee *localAccount = nil;
 }
 
 
+- (NSArray *) monitoredLocations {
+    return nil;
+}
+
+
+- (BOOL) storeMonitoredLocations:(NSArray *)locations {
+    return YES;
+}
+
+
 #pragma mark - private methods
 - (instancetype) initPrivate {
     self = [super init];

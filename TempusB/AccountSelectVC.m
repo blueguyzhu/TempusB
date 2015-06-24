@@ -34,8 +34,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.view = [[UITableView alloc] initWithFrame:self.preferedFrame style:UITableViewStylePlain];
-    
     self.clearsSelectionOnViewWillAppear = YES;
     
     [TempusRemoteService  employeeListWithSuccess:^(AFHTTPRequestOperation *op, id repObj) {
@@ -82,7 +80,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return !(self.accounts || self.accounts.count) ? 0 : self.accounts.count;
+    return !self.accounts ? 0 : self.accounts.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {

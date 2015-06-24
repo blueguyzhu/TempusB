@@ -31,6 +31,13 @@
     NSArray *remoteList = (NSArray *) rArr;
     NSMutableArray *localList = [[NSMutableArray alloc] initWithCapacity:remoteList.count];
     
+    for (NSDictionary *rawLocation in remoteList) {
+        TempusLocation *tempusLocation = [[TempusLocation alloc] init];
+        tempusLocation.identifier = rawLocation[@"Nr"];
+        tempusLocation.address = rawLocation[@"Lokasjon"];
+        
+        [localList addObject:tempusLocation];
+    }
     
     return localList;
 }

@@ -11,9 +11,13 @@
 #import "TempusRLDataParser.h"
 #import "TempusLocation.h"
 #import "CocoaLumberjack/CocoaLumberjack.h"
+#import "UIViewController+VSpinner.h"
+#import <CoreLocation/CoreLocation.h>
+#import "LocalDataAccessor.h"
 
 @interface LocationListViewController ()
 @property (nonatomic, strong) NSArray *locations;
+@property (nonatomic, strong) NSMutableArray *selectedLocations;
 @end
 
 @implementation LocationListViewController
@@ -26,6 +30,9 @@
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    
+    self.tableView.allowsMultipleSelection = YES;
+    
     [TempusRemoteService preconfLocationsWithSuccess:^(AFHTTPRequestOperation *op, id repObj) {
         self.locations = [TempusRLDataParser R2LParseLocationList:repObj];
         [self.tableView reloadData];
@@ -38,6 +45,12 @@
                                               otherButtonTitles:nil, nil];
         [alert show];
     }];
+    
+    NSArray *monitoredLocations = [[LocalDataAccessor sharedInstance] monitoredLocations];
+    if (monitoredLocations && monitoredLocations.count)
+        self.selectedLocations = [[NSMutableArray alloc] initWithArray: monitoredLocations];
+    else
+        self.selectedLocations = [[NSMutableArray alloc] init];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -61,17 +74,35 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:locCellName];
     
     if (!cell)
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:locCellName];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:locCellName];
+    
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    
     TempusLocation *tempusLocation = self.locations[indexPath.row];
     [cell.textLabel setText:tempusLocation.address];
     
+    if ([self.selectedLocations containsObject:tempusLocation])
+        [cell.textLabel setTextColor:[UIColor blueColor]];
+    
     if ((tempusLocation.coordinate.latitude != tempusLocation.coordinate.latitude ||
          tempusLocation.coordinate.longitude != tempusLocation.coordinate.longitude)) {
+        [self showSpinnerWithName:[NSString stringWithFormat:@"%@", tempusLocation.identifier] inView:cell];
         
+        CLGeocoder *geocoder = [[CLGeocoder alloc] init];
+        [geocoder geocodeAddressString:tempusLocation.address completionHandler:^(NSArray *placemarks, NSError *error) {
+            [self removeSpinnerWithName:[NSString stringWithFormat:@"%@", tempusLocation.identifier]];
+            if (error) {
+                DDLogError(@"Geodecode address %@ failed.", tempusLocation.address);
+                DDLogError(@"%@", error.description);
+            }else {
+                CLPlacemark *placemark = [placemarks objectAtIndex:0];
+                tempusLocation.coordinate = placemark.location.coordinate;
+                [cell.detailTextLabel setText:[NSString stringWithFormat:@"%f, %f", tempusLocation.coordinate.latitude, tempusLocation.coordinate.longitude]];
+            }
+        }];
     }
     
     
-    // Configure the cell...
     
     return cell;
 }
@@ -120,5 +151,21 @@
     // Pass the selected object to the new view controller.
 }
 */
+
+
+#pragma mark - UITableViewDelegate methods
+- (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    TempusLocation *tempusLocation = [self.locations objectAtIndex:indexPath.row];
+    if ([self.selectedLocations containsObject:tempusLocation]) {
+        [self.selectedLocations removeObject:tempusLocation];
+        UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+        [cell.textLabel setTextColor:[UIColor darkTextColor]];
+    }else {
+        [self.selectedLocations addObject:tempusLocation];
+        UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+        [cell.textLabel setTextColor:[UIColor blueColor]];
+    }
+    [tableView deselectRowAtIndexPath:indexPath animated:NO];
+}
 
 @end

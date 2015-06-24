@@ -18,4 +18,7 @@
 
 - (BOOL) storeLocalAccount: (TempusEmployee *)account;
 
+- (NSArray *) monitoredLocations;
+
+- (BOOL) storeMonitoredLocations: (NSArray *)locations;
 @end
