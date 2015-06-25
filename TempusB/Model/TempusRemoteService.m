@@ -11,6 +11,8 @@
 
 #import "TempusRemoteService.h"
 #import "TempusInOutRegRecord.h"
+#import "TempusLocationRegRecord.h"
+#import "TempusLocation.h"
 #import "AFNetworking.h"
 #import "TempusResult.h"
 #import "CocoaLumberjack/CocoaLumberjack.h"
@@ -34,13 +36,16 @@ static NSOperationQueue *msTempusRemoteServiceQue = nil;
     return msTempusRemoteServiceQue;
 }
 
-+ (TempusResult *) regInOut:(TempusInOutRegRecord *)entryInfo
++ (TempusResult *) regInOut:(TempusRegRecord *)entryInfo
                 withSuccess: (void (^)(AFHTTPRequestOperation *operation, id responseObj))suc
                     failure: (void (^)(AFHTTPRequestOperation *operation, NSError *error))failure{
     NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] initWithCapacity:3];
     jsonDict[@"AnsattNr"] = entryInfo.userId;
     jsonDict[@"InOrOut"] = entryInfo.type == kREG_TYPE_IN ? @"in" : @"out";
-    jsonDict[@"Site"] = @"";
+    if ([entryInfo isKindOfClass:[TempusLocationRegRecord class]])
+        jsonDict[@"Site"] = [[((TempusLocationRegRecord *)entryInfo) tempusLocation] identifier];
+    else
+        jsonDict[@"Site"] = @"";
     
     NSError *err = nil;
     NSData *jsonData = [NSJSONSerialization dataWithJSONObject:jsonDict options:0 error:&err];

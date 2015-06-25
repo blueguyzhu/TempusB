@@ -12,5 +12,6 @@
 
 @property (nonatomic, strong) NSDate *date;
 @property (nonatomic, assign) NSUInteger type;
+@property (nonatomic, strong) NSString *userId;
 
 @end

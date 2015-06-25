@@ -11,17 +11,20 @@
 #define kREGION_ID                  @"Tempus_Beacon"
 #define kBEACON_OUT_OF_RANGE_LIMIT  10
 
+#import "Header.h"
 #import "InfoPresentViewController.h"
 #import "NSString+HeightCalc.h"
 #import "PeripheralDeviceManager.h"
 #import "TempusEmployee.h"
+#import "TempusLocation.h"
 #import "TempusRemoteService.h"
 #import "TempusRemoteServiceResponseDelegate.h"
 #import "TempusResult.h"
-//#import "RemoteRegEntry.h"
 #import "TempusRegMsg.h"
 #import "TempusBeacon.h"
+#import "TempusCircularRegion.h"
 #import "TempusInOutRegRecord.h"
+#import "TempusLocationRegRecord.h"
 #import "DBManager.h"
 #import "LocalDataAccessor.h"
 #import <CocoaLumberjack.h>
@@ -52,7 +55,6 @@ static NSString *tmpStaticStr = @"2015-12-01 12:30:41 This is an example message
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self.view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"background.png"]]];
     [self initiation];
 }
 
@@ -79,8 +81,8 @@ static NSString *tmpStaticStr = @"2015-12-01 12:30:41 This is an example message
 #pragma mark - Delegate of CLLocationManager
 - (void) locationManager:(CLLocationManager *)manager didStartMonitoringForRegion:(CLRegion *)region {
     //CLBeaconRegion *beaconRegion = (CLBeaconRegion *)region;
-    DDLogDebug(@"Did start to monitor region: %@", region.identifier);
-//    [manager startRangingBeaconsInRegion:beaconRegion];
+    DDLogInfo(@"Did start to monitor region: %@", region.identifier);
+    //[manager requestStateForRegion:region];
 }
 
 - (void) locationManager:(CLLocationManager *)manager monitoringDidFailForRegion:(CLRegion *)region withError:(NSError *)error {
@@ -95,30 +97,110 @@ static NSString *tmpStaticStr = @"2015-12-01 12:30:41 This is an example message
 
 - (void) locationManager:(CLLocationManager *)manager didDetermineState:(CLRegionState)state forRegion:(CLRegion *)region{
     if (CLRegionStateInside == state) {
-        DDLogInfo(@"Region state is inside.");
+        DDLogInfo(@"Region %@, state is inside.", region.identifier);
         [manager startUpdatingLocation];
         [manager startRangingBeaconsInRegion:(CLBeaconRegion *)region];
     }else if (CLRegionStateOutside == state) {
         [manager stopUpdatingLocation];
         [manager stopRangingBeaconsInRegion:(CLBeaconRegion *)region];
-        DDLogInfo(@"Region state is outside.");
+        DDLogInfo(@"Region %@, state is outside.", region.identifier);
     }else {
-        DDLogWarn(@"Region state is unknown.");
+        DDLogInfo(@"Region %@, state is unknown.", region.identifier);
     }
 }
 
 
 - (void) locationManager:(CLLocationManager *)manager didEnterRegion:(CLRegion *)region{
     DDLogInfo(@"Enter into region: %@", region.identifier);
-    [manager startUpdatingLocation];
-    [manager startRangingBeaconsInRegion:(CLBeaconRegion *)region];
+    if ([region isKindOfClass: [CLBeaconRegion class]]) {
+        [manager startUpdatingLocation];
+        [manager startRangingBeaconsInRegion:(CLBeaconRegion *)region];
+    } else if ([region isKindOfClass:[TempusCircularRegion class]]) {
+        
+    } else if ([region isKindOfClass:[CLCircularRegion class]]) {
+        NSArray *monitoredLocations = [[LocalDataAccessor sharedInstance] monitoredLocations];
+        TempusLocation *curLoc = [[TempusLocation alloc] init];
+        curLoc.identifier = region.identifier;
+        for (TempusLocation *tpsLoc in monitoredLocations) {
+            if ([tpsLoc isEqual:curLoc]) {
+                curLoc = tpsLoc;
+                break;
+            }
+        }
+
+        
+        TempusLocationRegRecord *regRecd = [[TempusLocationRegRecord alloc] init];
+        regRecd.tempusLocation = curLoc;
+        TempusEmployee *employee = [[LocalDataAccessor sharedInstance] localAccount];
+        regRecd.userId = employee.identifier;
+        regRecd.type = kREG_TYPE_IN;
+        regRecd.date = [[NSDate alloc] init];
+        [TempusRemoteService regInOut:regRecd withSuccess:^(AFHTTPRequestOperation *operation, id responseObj) {
+            NSString *logMsg = [NSString stringWithFormat: @"Employee (%@) registered in site (%@, %@).", employee.name, curLoc.identifier, curLoc.address];
+            DDLogInfo(logMsg);
+                            
+            TempusRegMsg *msg = [[TempusRegMsg alloc] init];
+                            msg.time = regRecd.date;
+                            msg.msg = [NSString stringWithFormat:@"%@ %@ (%@, %@)", employee.name, NSLocalizedString(@"REG_OUT", @"Register out"), curLoc.identifier, curLoc.address];
+                            [self newMsg:msg];
+                            
+//                            [self newInOutRegRecord:regRecord];
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            NSString *logMsg = [NSString stringWithFormat: @"Employee (%@) registered in site (%@, %@) failed.", employee.name, curLoc.identifier, curLoc.address];
+            DDLogError(logMsg);
+            TempusRegMsg *msg = [[TempusRegMsg alloc] init];
+                            msg.time = regRecd.date;
+                            msg.msg = [NSString stringWithFormat:@"%@ %@ (%@, %@) failed!!!", employee.name, NSLocalizedString(@"REG_OUT", @"Register out"), curLoc.identifier, curLoc.address];
+                            [self newMsg:msg];
+        }];
+    }
 }
 
 
 - (void) locationManager:(CLLocationManager *)manager didExitRegion:(CLRegion *)region {
     DDLogInfo(@"Exit region: %@", region.identifier);
-    [manager stopUpdatingLocation];
-    [manager stopRangingBeaconsInRegion:(CLBeaconRegion *)region];
+    if ([region isKindOfClass: [CLBeaconRegion class]]) {
+        [manager startUpdatingLocation];
+        [manager startRangingBeaconsInRegion:(CLBeaconRegion *)region];
+    } else if ([region isKindOfClass:[TempusCircularRegion class]]) {
+        
+    } else if ([region isKindOfClass:[CLCircularRegion class]]) {
+        NSArray *monitoredLocations = [[LocalDataAccessor sharedInstance] monitoredLocations];
+        TempusLocation *curLoc = [[TempusLocation alloc] init];
+        curLoc.identifier = region.identifier;
+        for (TempusLocation *tpsLoc in monitoredLocations) {
+            if ([tpsLoc isEqual:curLoc]) {
+                curLoc = tpsLoc;
+                break;
+            }
+        }
+
+        
+        TempusLocationRegRecord *regRecd = [[TempusLocationRegRecord alloc] init];
+        regRecd.tempusLocation = curLoc;
+        TempusEmployee *employee = [[LocalDataAccessor sharedInstance] localAccount];
+        regRecd.userId = employee.identifier;
+        regRecd.type = kREG_TYPE_OUT;
+        regRecd.date = [[NSDate alloc] init];
+        [TempusRemoteService regInOut:regRecd withSuccess:^(AFHTTPRequestOperation *operation, id responseObj) {
+            NSString *logMsg = [NSString stringWithFormat: @"Employee (%@) registered out site (%@, %@).", employee.name, curLoc.identifier, curLoc.address];
+            DDLogInfo(logMsg);
+                            
+            TempusRegMsg *msg = [[TempusRegMsg alloc] init];
+                            msg.time = regRecd.date;
+                            msg.msg = [NSString stringWithFormat:@"%@ %@ (%@, %@)", employee.name, NSLocalizedString(@"REG_OUT", @"Register out"), curLoc.identifier, curLoc.address];
+                            [self newMsg:msg];
+                            
+//                            [self newInOutRegRecord:regRecord];
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            NSString *logMsg = [NSString stringWithFormat: @"Employee (%@) registered out site (%@, %@) failed.", employee.name, curLoc.identifier, curLoc.address];
+            DDLogError(logMsg);
+            TempusRegMsg *msg = [[TempusRegMsg alloc] init];
+                            msg.time = regRecd.date;
+                            msg.msg = [NSString stringWithFormat:@"%@ %@ (%@, %@) failed!!!", employee.name, NSLocalizedString(@"REG_OUT", @"Register out"), curLoc.identifier, curLoc.address];
+                            [self newMsg:msg];
+        }];
+    }
 }
 
 
@@ -355,6 +437,37 @@ static NSString *tmpStaticStr = @"2015-12-01 12:30:41 This is an example message
 
 #pragma mark - Private Methods
 - (void) initiation {
+    //UI
+    [self.view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"background.png"]]];
+    
+    
+    [[NSNotificationCenter defaultCenter] addObserverForName:kNOTI_GEO_LOC_UPDATE object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *note) {
+        NSMutableArray *selectedLocations = [[NSMutableArray alloc] initWithArray: [[LocalDataAccessor sharedInstance] monitoredLocations]];
+        NSSet *monitoredRegion = [self.locManager monitoredRegions];
+        for (CLRegion *region in monitoredRegion) {
+            //skip beacon regions;
+            if ([region isKindOfClass: [CLBeaconRegion class]])
+                continue;
+            
+            //skip if the get region is stilled required to be monitored
+            TempusLocation *tempusLocation = [[TempusLocation alloc] init];
+            tempusLocation.identifier = region.identifier;
+            if ([selectedLocations containsObject:tempusLocation]) {
+                [selectedLocations removeObject:tempusLocation];
+                continue;
+            }
+            
+            //remove the region
+            [self.locManager stopMonitoringForRegion:region];
+        }
+        
+        for (TempusLocation *tempusLocation in selectedLocations) {
+            CLCircularRegion *region = [[CLCircularRegion alloc] initWithCenter:tempusLocation.coordinate radius:100 identifier:tempusLocation.identifier];
+            [self.locManager startMonitoringForRegion:region];
+        }
+    }];
+    
+    
     self.beingRangedBeacons = [[NSMutableArray alloc] init];
     self.beingRangedBeaconsCounter = [[NSMutableDictionary alloc] init];
     self.cachedRegEntries = [[NSMutableArray alloc] init];

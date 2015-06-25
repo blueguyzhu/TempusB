@@ -8,6 +8,7 @@
 
 #import "LocalDataAccessor.h"
 #import "TempusEmployee.h"
+#import "TempusLocation.h"
 #import "LightLocalStorageManager.h"
 
 
@@ -57,12 +58,36 @@ static TempusEmployee *localAccount = nil;
 
 
 - (NSArray *) monitoredLocations {
-    return nil;
+    NSArray *cocoaObjs = [LightLocalStorageManager readMonitoredLocations];
+    NSMutableArray *locObjs = [[NSMutableArray alloc] initWithCapacity:cocoaObjs.count];
+    
+    for (NSDictionary *cocoaObj in cocoaObjs) {
+        TempusLocation *tempusLocation = [[TempusLocation alloc] init];
+        tempusLocation.identifier = cocoaObj[@"id"];
+        tempusLocation.address = cocoaObj[@"addr"];
+        tempusLocation.coordinate = CLLocationCoordinate2DMake([cocoaObj[@"latitude"] floatValue], [cocoaObj[@"longitude"] floatValue]);
+        
+        [locObjs addObject:tempusLocation];
+    }
+    
+    return locObjs;
 }
 
 
 - (BOOL) storeMonitoredLocations:(NSArray *)locations {
-    return YES;
+    NSMutableArray *cocoaObjs = [[NSMutableArray alloc] initWithCapacity:locations.count];
+    
+    for (TempusLocation *loc in locations) {
+        NSMutableDictionary *cocoaLocObj = [[NSMutableDictionary alloc] init];
+        [cocoaLocObj setObject:loc.identifier forKey:@"id"];
+        [cocoaLocObj setObject:loc.address forKey:@"addr"];
+        [cocoaLocObj setObject:[NSNumber numberWithFloat:loc.coordinate.latitude] forKey:@"latitude"];
+        [cocoaLocObj setObject:[NSNumber numberWithFloat:loc.coordinate.longitude] forKey:@"longitude"];
+        
+        [cocoaObjs addObject:cocoaLocObj];
+    }
+    
+    return [LightLocalStorageManager writeMonitoredLocations:cocoaObjs];
 }
 
 

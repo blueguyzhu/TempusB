@@ -54,6 +54,8 @@
     
     [self.navigationController setNavigationBarHidden:NO];
     
+    [self.tableView reloadData];
+    
     for (int i = 0; i < [self.tableView numberOfSections]; ++i) {
         CGRect sectionFrame = [self.tableView rectForSection:i];
         sectionFrame = CGRectMake(sectionFrame.origin.x, sectionFrame.origin.y + 20.0f, sectionFrame.size.width, sectionFrame.size.height - 30);

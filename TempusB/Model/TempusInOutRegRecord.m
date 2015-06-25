@@ -15,7 +15,7 @@
     
     if (self) {
         self.beaconShortId = nil;
-        self.userId = nil;
+        //self.userId = nil;
     }
     
     return self;

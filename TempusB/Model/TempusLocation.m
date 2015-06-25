@@ -27,7 +27,7 @@
     
     TempusLocation *other = (TempusLocation *) object;
     
-    return self.identifier == other.identifier;
+    return [self.identifier isEqualToString: other.identifier];
 }
 
 @end

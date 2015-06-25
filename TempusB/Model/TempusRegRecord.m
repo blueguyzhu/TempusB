@@ -28,7 +28,7 @@
     
     TempusRegRecord *other = (TempusRegRecord *)object;
     
-    return self.type == other.type && [self.date isEqualToDate:other.date];
+    return [self.userId isEqualToString:self.userId] && self.type == other.type && [self.date isEqualToDate:other.date];
 }
 
 @end

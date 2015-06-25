@@ -6,6 +6,7 @@
 //  Copyright (c) 2015 Tempus AS. All rights reserved.
 //
 
+#import "Header.h"
 #import "LocationListViewController.h"
 #import "TempusRemoteService.h"
 #import "TempusRLDataParser.h"
@@ -16,8 +17,9 @@
 #import "LocalDataAccessor.h"
 
 @interface LocationListViewController ()
-@property (nonatomic, strong) NSArray *locations;
-@property (nonatomic, strong) NSMutableArray *selectedLocations;
+@property (nonatomic, strong) NSArray *locations;   //all available TempusLocations
+@property (nonatomic, strong) NSMutableArray *monitoredLocations;  //TempusLocations loaded from local storage
+@property (nonatomic, strong) NSMutableArray *selectedLocations;    //user dynamically selected TempusLocations
 @end
 
 @implementation LocationListViewController
@@ -48,14 +50,31 @@
     
     NSArray *monitoredLocations = [[LocalDataAccessor sharedInstance] monitoredLocations];
     if (monitoredLocations && monitoredLocations.count)
-        self.selectedLocations = [[NSMutableArray alloc] initWithArray: monitoredLocations];
+        self.monitoredLocations = [[NSMutableArray alloc] initWithArray: monitoredLocations];
     else
-        self.selectedLocations = [[NSMutableArray alloc] init];
+        self.monitoredLocations = [[NSMutableArray alloc] init];
+    
+    self.selectedLocations = [[NSMutableArray alloc] initWithArray:self.monitoredLocations];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+
+- (void) viewWillDisappear:(BOOL)animated {
+    BOOL update = NO;
+    update = self.monitoredLocations.count != self.selectedLocations.count;
+    if (!update) {
+        [self.monitoredLocations removeObjectsInArray:self.selectedLocations];
+        update = [self.monitoredLocations count];
+    }
+    
+    if (update) {
+        [[LocalDataAccessor sharedInstance] storeMonitoredLocations:self.selectedLocations];
+        [[NSNotificationCenter defaultCenter] postNotificationName:kNOTI_GEO_LOC_UPDATE object:self];
+    }
 }
 
 #pragma mark - Table view data source

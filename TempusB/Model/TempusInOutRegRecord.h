@@ -14,6 +14,6 @@
 @interface TempusInOutRegRecord : TempusRegRecord
 
 @property (nonatomic, strong) NSString *beaconShortId;
-@property (nonatomic, strong) NSString *userId;
+//@property (nonatomic, strong) NSString *userId;
 
 @end

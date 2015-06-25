@@ -12,5 +12,7 @@
 
 + (NSDictionary *) readUserAccount;
 + (BOOL) writeUserAccount: (NSDictionary *)account;
++ (NSArray *) readMonitoredLocations;
++ (BOOL) writeMonitoredLocations: (NSArray *)locations;
 
 @end
