@@ -19,3 +19,4 @@
 "CFG_BEACONS" = "Konfigurer Beacon";
 "USE_GEO_LOCATION" = "Bruk Plassering";
 "CFG_LOCATIONS" = "Konfigurer Plasseringer";
+"NO_BEACON_FOUND" = "Beaconen er ikke på listen"

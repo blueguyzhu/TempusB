@@ -7,21 +7,19 @@
 //
 
 #import "BeaconListViewController.h"
+#import "QRScannerViewController.h"
+#import "CocoaLumberjack/CocoaLumberjack.h"
+#import "LocalDataAccessor.h"
+#import "Header.h"
+#import "TempusBeacon.h"
+#import "PeripheralDeviceManager.h"
 
 @interface BeaconListViewController ()
-@property (nonatomic, assign) CGRect preferedFrame;
+@property (nonatomic, strong) NSArray *monitoredBeacons;
+@property (nonatomic, strong) NSMutableArray *selectedBeacons;
 @end
 
 @implementation BeaconListViewController
-
-- (instancetype) initWithFrame:(CGRect)frame {
-    self = [super init];
-    if (self) {
-        self.preferedFrame = frame;
-    }
-    
-    return self;
-}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -30,7 +28,13 @@
     // self.clearsSelectionOnViewWillAppear = NO;
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    //self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    UIBarButtonItem *addBtn = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addMoreBtnClicked)];
+    self.navigationItem.rightBarButtonItem = addBtn;
+    
+    self.tableView.allowsMultipleSelectionDuringEditing = YES;
+    self.monitoredBeacons = [[LocalDataAccessor sharedInstance] monitoredBeacons];
+    self.selectedBeacons = [[NSMutableArray alloc] initWithArray:self.monitoredBeacons];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -38,27 +42,51 @@
     // Dispose of any resources that can be recreated.
 }
 
+
+- (void) viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+}
+
+
+- (void) viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    
+    BOOL update = NO;
+    if (self.monitoredBeacons.count != self.selectedBeacons.count)
+        update = YES;
+    
+    if (!update) {
+        NSMutableArray *tmpBeaconArr = [[NSMutableArray alloc] initWithArray:self.monitoredBeacons];
+        [tmpBeaconArr removeObjectsInArray:self.selectedBeacons];
+        update = tmpBeaconArr.count;
+    }
+    
+    if (!update)
+        [[NSNotificationCenter defaultCenter] postNotificationName:kNOTI_BEACON_UPDATE object:self];
+}
+
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    // Return the number of sections.
-    return 0;
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    // Return the number of rows in the section.
-    return 0;
+    return self.selectedBeacons.count;
 }
 
-/*
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:<#@"reuseIdentifier"#> forIndexPath:indexPath];
-    
-    // Configure the cell...
+    static NSString *plainCellId = @"PlainCell";
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:plainCellId];
+    if (!cell)
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:plainCellId];
+   
+    [cell.textLabel setText:((TempusBeacon *)self.selectedBeacons[indexPath.row]).shortId];
     
     return cell;
 }
-*/
+
 
 /*
 // Override to support conditional editing of the table view.
@@ -94,6 +122,21 @@
 }
 */
 
+- (BOOL) tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+    return YES;
+}
+
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (UITableViewCellEditingStyleDelete == editingStyle) {
+        [self.selectedBeacons removeObjectAtIndex:indexPath.row];
+        
+        [[LocalDataAccessor sharedInstance] storeMonitoredBeacons:self.selectedBeacons];
+        
+        [self.tableView reloadData];
+    }
+}
+
 /*
 #pragma mark - Navigation
 
@@ -103,5 +146,52 @@
     // Pass the selected object to the new view controller.
 }
 */
+
+
+
+#pragma mark - event response
+- (void) addMoreBtnClicked {
+    QRScannerViewController *QRScannerVC = [[QRScannerViewController alloc] initWithCompletion:^(NSString *shortId) {
+        DDLogDebug(@"%@", shortId);
+        
+        dispatch_sync(dispatch_get_main_queue(), ^{
+            TempusBeacon *tempusBeacon = [[PeripheralDeviceManager sharedManager] beaconWithShortId:shortId];
+            if (!tempusBeacon) {
+                [self.navigationController popViewControllerAnimated:YES];
+                
+                if (![UIAlertController class]) {
+                    UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil
+                                                                                   message:NSLocalizedString(@"NO_BEACON_FOUND", @"Cannot find the beacon in the configured list.")
+                                                                            preferredStyle:UIAlertControllerStyleAlert];
+                    UIAlertAction *defaultAction = [UIAlertAction actionWithTitle:@"OK"
+                                                                            style:UIAlertActionStyleDefault
+                                                                          handler:nil];
+                    
+                    [alert addAction:defaultAction];
+                    
+                    [self presentViewController:alert animated:YES completion:nil];
+                } else {
+                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil
+                                                                    message:NSLocalizedString(@"NO_BEACON_FOUND", @"Cannot find the beacon in the configured list.")
+                                                                   delegate:nil
+                                                          cancelButtonTitle:@"OK"
+                                                          otherButtonTitles:nil, nil];
+                    [alert show];
+                }
+                
+            }
+            else {
+                [self.selectedBeacons addObject:tempusBeacon];
+                [[LocalDataAccessor sharedInstance] storeMonitoredBeacons:self.selectedBeacons];
+                
+                [self.navigationController popViewControllerAnimated:YES];
+                [self.tableView reloadData];
+            }
+        });
+        
+    }];
+    
+    [self.navigationController pushViewController:QRScannerVC animated:YES];
+}
 
 @end

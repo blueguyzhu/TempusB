@@ -12,7 +12,6 @@
 #import "SettingsViewController.h"
 #import "DropdownListViewController.h"
 #import "AccountSelectVC.h"
-#import "QRScannerViewController.h"
 #import "FullSettingsViewController.h"
 #import "TempusEmployee.h"
 #import "LocalDataAccessor.h"
@@ -103,7 +102,7 @@
     //[self presentViewController:accSelectVC animated:YES completion:nil];
 }
 
-
+/*
 - (void) presentScannerView {
     if (!self.curEmployee) {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil
@@ -125,6 +124,7 @@
     }];
     [self.navigationController pushViewController:QRScannerVC animated:YES];
 }
+ */
 
 
 - (void) presentConfigurationView {
@@ -147,7 +147,7 @@
     [self.dropdownListVC registerListIcons:kOPT_ICONS];
     [self.dropdownListVC registerRowSelectAction:@selector(hideListView) ofTarget:self];
     [self.dropdownListVC registerRowSelectAction:@selector(presentAccountSelectView) ofTarget:self atRow:0];
-    [self.dropdownListVC registerRowSelectAction:@selector(presentScannerView) ofTarget:self atRow:1];
+//    [self.dropdownListVC registerRowSelectAction:@selector(presentScannerView) ofTarget:self atRow:1];
     [self.dropdownListVC registerRowSelectAction:@selector(presentConfigurationView) ofTarget:self atRow:2];
     
     [self.view addSubview:self.dropdownListVC.view];

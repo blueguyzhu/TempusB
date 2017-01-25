@@ -8,8 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface BeaconListViewController : UITableViewController
-
-- (instancetype) initWithFrame: (CGRect) frame;
+@interface BeaconListViewController : UITableViewController <UIAlertViewDelegate>
 
 @end

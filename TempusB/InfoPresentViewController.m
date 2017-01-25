@@ -7,8 +7,6 @@
 //
 
 #define kREG_MSG_DISP_LMT           20
-#define kUUID_STR                   @"f7826da6-4fa2-4e98-8024-bc5b71e0893e"
-#define kREGION_ID                  @"Tempus_Beacon"
 #define kBEACON_OUT_OF_RANGE_LIMIT  10
 
 #import "Header.h"
@@ -141,7 +139,7 @@ static NSString *tmpStaticStr = @"2015-12-01 12:30:41 This is an example message
                             
             TempusRegMsg *msg = [[TempusRegMsg alloc] init];
                             msg.time = regRecd.date;
-                            msg.msg = [NSString stringWithFormat:@"%@ %@ (%@, %@)", employee.name, NSLocalizedString(@"REG_OUT", @"Register out"), curLoc.identifier, curLoc.address];
+                            msg.msg = [NSString stringWithFormat:@"%@ %@ (%@, %@)", employee.name, NSLocalizedString(@"REG_IN", @"Register in"), curLoc.identifier, curLoc.address];
                             [self newMsg:msg];
                             
 //                            [self newInOutRegRecord:regRecord];
@@ -464,6 +462,20 @@ static NSString *tmpStaticStr = @"2015-12-01 12:30:41 This is an example message
         for (TempusLocation *tempusLocation in selectedLocations) {
             CLCircularRegion *region = [[CLCircularRegion alloc] initWithCenter:tempusLocation.coordinate radius:100 identifier:tempusLocation.identifier];
             [self.locManager startMonitoringForRegion:region];
+        }
+    }];
+    
+    
+    [[NSNotificationCenter defaultCenter] addObserverForName:kNOTI_BEACON_UPDATE object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *note) {
+        NSMutableArray *selectedBeacons = [[NSMutableArray alloc] initWithArray:[[LocalDataAccessor sharedInstance] monitoredBeacons]];
+        NSSet *monitoredRegion = [self.locManager monitoredRegions];
+        NSMutableArray *beaconIdArr = [[NSMutableArray alloc] init];
+        for (CLRegion *region in monitoredRegion) {
+            if (![region isKindOfClass:[CLBeaconRegion class]])
+                continue;
+            [beaconIdArr addObject:region.identifier];
+            CLBeaconRegion *beaconRegion = (CLBeaconRegion *) region;
+            beaconRegion
         }
     }];
     

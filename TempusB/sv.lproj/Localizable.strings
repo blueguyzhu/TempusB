@@ -19,3 +19,4 @@
 "CFG_BEACONS" = "Konfigurer Beacon";
 "USE_GEO_LOCATION" = "Använda Läge";
 "CFG_LOCATIONS" = "Konfigurera Platser";
+"NO_BEACON_FOUND" = "Beaconan är inte pä listan"

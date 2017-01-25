@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 
 @class TempusEmployee;
+@class TempusBeacon;
 
 @interface PeripheralDeviceManager : NSObject 
 
@@ -18,4 +19,5 @@
 - (NSString *) shortIdByMajorInt: (NSInteger)major andMinorInt: (NSInteger)minor;
 //- (TempusEmployee *) employeeWithShortId: (NSString *)shortId;
 - (BOOL) beaconExists: (NSString *)shortId;
+- (TempusBeacon *) beaconWithShortId: (NSString *)shortId;
 @end

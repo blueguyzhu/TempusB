@@ -51,7 +51,7 @@
     
     [self.view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"background.png"]]];
     [self.navigationController setNavigationBarHidden:NO];
-    [self.previewView setBackgroundColor:[UIColor redColor]];
+//    [self.previewView setBackgroundColor:[UIColor redColor]];
     
     if (!self.cancelBtn) {
         [self.view addSubview:self.previewView];

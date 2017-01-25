@@ -14,11 +14,28 @@
 
 + (instancetype) sharedInstance;
 
+/*
+ * Access local account
+ */
 - (TempusEmployee *) localAccount;
 
 - (BOOL) storeLocalAccount: (TempusEmployee *)account;
 
+/*
+ * Access monitored geolocations;
+ * param: 
+ *  @locations: TempusLocation array
+ */
 - (NSArray *) monitoredLocations;
 
 - (BOOL) storeMonitoredLocations: (NSArray *)locations;
+
+/*
+ * Access monitored beacons
+ * param: 
+ *  @beacons: TempusBeacon array
+ */
+- (NSArray *) monitoredBeacons;
+
+- (BOOL) storeMonitoredBeacons: (NSArray *)beacons;
 @end

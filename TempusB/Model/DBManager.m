@@ -11,6 +11,7 @@
 #import <sqlite3.h>
 #import "DBManager.h"
 #import <CocoaLumberjack.h>
+#import "Header.h"
 #import "TempusBeacon.h"
 #import "TempusRegMsg.h"
 #import "TempusRegRecord.h"
@@ -67,6 +68,8 @@ static int msDbOpenCount = 0;
             tempusBeacon.shortId = [NSString stringWithFormat:@"%s", sqlite3_column_text(statement, 0)];
             tempusBeacon.major = sqlite3_column_int(statement, 1);
             tempusBeacon.minor = sqlite3_column_int(statement, 2);
+            tempusBeacon.identifier = tempusBeacon.shortId;
+            tempusBeacon.domain = kUUID_STR;
             
             [deviceList addObject:tempusBeacon];
         }

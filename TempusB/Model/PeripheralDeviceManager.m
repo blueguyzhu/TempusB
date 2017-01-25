@@ -58,11 +58,10 @@
 }
 
 
-/*
-- (TempusEmployee *)employeeWithShortId:(NSString *)shortId {
-    return self.employees[shortId];
+
+- (TempusBeacon *)beaconWithShortId:(NSString *)shortId {
+    return [self.deviceList objectForKey:shortId];
 }
- */
 
 
 - (BOOL) beaconExists:(NSString *)shortId {

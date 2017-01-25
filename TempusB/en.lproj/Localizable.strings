@@ -19,3 +19,4 @@
 "CFG_BEACONS" = "Configure Beacons";
 "USE_GEO_LOCATION" = "Use Geo-location";
 "CFG_LOCATIONS" = "Configure Locations";
+"NO_BEACON_FOUND" = "The beacon is not in the list"

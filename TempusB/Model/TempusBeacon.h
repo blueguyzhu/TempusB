@@ -10,6 +10,8 @@
 
 @interface TempusBeacon : NSObject <NSCopying>
 
+@property (nonatomic, strong) NSString *identifier;
+@property (nonatomic, strong) NSString *domain;
 @property (nonatomic, strong) NSString *shortId;
 @property (nonatomic, assign) NSInteger major;
 @property (nonatomic, assign) NSInteger minor;
